@@ -1,0 +1,33 @@
+namespace Hack;
+
+public enum Computation
+{
+    Zero,
+    One,
+    MinusOne,
+    Destination,
+    Address,
+    NotDestination,
+    NotAddress,
+    MinusDestination,
+    MinusAddress,
+    DestinationPlusOne,
+    AddressPlusOne,
+    DestinationMinusOne,
+    AddressMinusOne,
+    DestinationPlusAddress,
+    DestinationMinusAddress,
+    AddressMinusDestination,
+    DestinationAndAddress,
+    DestinationOrAddress,
+    Memory,
+    NotMemory,
+    MinusMemory,
+    MemoryPlusOne,
+    MemoryMinusOne,
+    DestinationPlusMemory,
+    DestinationMinusMemory,
+    MemoryMinusDestination,
+    DestinationAndMemory,
+    DestinationOrMemory,
+}
