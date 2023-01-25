@@ -91,7 +91,7 @@ public class Tiny
 
     private readonly ushort[] data = new ushort[short.MaxValue];
 
-    private int ip = 0;
+    private ushort ip = 0;
 
     public ushort D { get; private set; }
 
@@ -107,6 +107,8 @@ public class Tiny
         {
             var ins = this.instructions[ip];
             var type = GetCommandType(ins);
+
+            // TODO: Check for halt
 
             switch (type)
             {
@@ -134,6 +136,13 @@ public class Tiny
 
     private ushort ExecuteCompute(ushort ins)
     {
+        // This is a value pointint into the *next* instruction index.
+        ushort NextInstruction() => (ushort)(this.ip + 1);
+
+        var next = this.ip;
+
+        // Get some more friendly representations
+        // of our instruction set.
         var comp = computations[(ushort)(ins & CompMask)];
         var dest = destinations[(ushort)(ins & DestinationMask)];
         var jump = jumps[(ushort)(ins & JumpMask)];
@@ -141,6 +150,9 @@ public class Tiny
         // debug
         Console.WriteLine($"{dest}={comp};{jump}");
 
+        // First, we need to deal with the current
+        // computation. There's only so much things this ALU
+        // can do so the switch should be straightforward.
         switch (comp)
         {
             case Computation.Zero:
@@ -172,12 +184,25 @@ public class Tiny
             case Computation.MinusAddress:
                 this.Out = (ushort)-this.A;
                 break;
+            case Computation.Memory:
+                this.Out = this.data[this.A];
+                break;
             default:
-                throw new InvalidOperationException();
+                var msg = $"{comp}";
+                throw new InvalidOperationException(msg);
         }
         
+        // We need to have a way to direct the output of our
+        // most recent computation and this takes care of that.
+        // The three basic registers are A(ddress), D(ata) 
+        // and M(emory). There's a number of destination options
+        // that allow to write to multiple registers/locations in
+        // memory.
         switch (dest)
         {
+            case Destination.None:
+                // Just drop it.                
+                break;
             case Destination.Destination:
                 Console.WriteLine($"D <-");
                 this.D = this.Out;
@@ -186,7 +211,7 @@ public class Tiny
                 Console.WriteLine($"M[{this.A}] <-");
                 this.data[this.A] = this.Out;
                 break;
-            case Destination.Memory | Destination.Destination:
+            case Destination.DM:
                 Console.WriteLine($"D M[{this.A}] <-");
                 this.data[this.A] = this.Out;
                 this.D = this.Out;
@@ -195,25 +220,75 @@ public class Tiny
                 Console.WriteLine($"A <-");
                 this.A = this.Out;
                 break;
-            case Destination.Address | Destination.Memory:
+            case Destination.AM:
                 Console.WriteLine($"A M[{this.A}] <-");
                 this.data[this.A] = this.Out;
                 this.A = this.Out;
                 break;
-            case Destination.Address | Destination.Destination:
+            case Destination.AD:
                 Console.WriteLine($"A D <-");
                 this.A = this.Out;
                 this.D = this.Out;
                 break;
-            case Destination.Address | Destination.Destination | Destination.Memory:
-                Console.WriteLine($"A D M[{this.A}]");
+            case Destination.AMD:
+                Console.WriteLine($"A D M[{this.A}] <-");
                 this.data[this.A] = this.Out;
                 this.A = this.Out;
                 this.D = this.Out;
                 break;
+            default:
+                throw new InvalidOperationException();
         }
 
-        return 0;
+        // The `jump` part of the C-instruction specifies
+        // where we need to to next. It will always compare
+        // to zero (0). We need to return the instruction
+        // pointer (ip) value accordingly. If there's no 
+        // jump component in the C-instruction then we will
+        // just resume with the next one `this.ip + 1` and
+        // otherwise we'll firgure out how to jump using
+        // the `jump` field in the C-instruction.
+        switch (jump)
+        {
+            case Jump.None:
+                next = (ushort)(this.ip + 1);
+                break;
+            case Jump.Equal:
+                next = this.Out == 0 
+                    ? this.A 
+                    : NextInstruction();
+                break;
+            case Jump.NotEqual:
+                next = this.Out != 0
+                    ? this.A 
+                    : NextInstruction();
+                break;
+            case Jump.GreaterThan:
+                next = this.Out > 0
+                    ? this.A
+                    : NextInstruction();
+                break;
+            case Jump.GreaterThanOrEqual:
+                next = this.Out >= 0
+                    ? this.A
+                    : NextInstruction();
+                break;
+            case Jump.LessThan:
+                next = this.Out < 0
+                    ? this.A
+                    : NextInstruction();
+                break;
+            case Jump.LessThanOrEqual:
+                next = this.Out <= 0
+                    ? this.A
+                    : NextInstruction();
+                break;
+            case Jump.Unconditionally:
+                next = this.A;
+                break;
+        }
+
+        return next;
     }
 
     private bool IsComputeInstruction(ushort ins) =>
