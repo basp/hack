@@ -139,9 +139,10 @@ public class Tiny
         // This is a value pointint into the *next* instruction index.
         ushort NextInstruction() => (ushort)(this.ip + 1);
 
-        // By default we just go into infinite loop here, default
+        // By default we just go into infinite loop here. The
         // value of `next` is the current instruction pointer.
         // So if we don't do anything in this method we'll be F'ed.
+        // In other words: make sure to change the instruction pointer!
         var next = this.ip;
 
         // Get some more friendly representations
@@ -244,7 +245,7 @@ public class Tiny
         }
 
         // The `jump` part of the C-instruction specifies
-        // where we need to to next. It will always compare
+        // where we need to go to next. It will always compare
         // to zero (0). We need to return the instruction
         // pointer (ip) value accordingly. If there's no 
         // jump component in the C-instruction then we will
