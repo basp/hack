@@ -139,6 +139,9 @@ public class Tiny
         // This is a value pointint into the *next* instruction index.
         ushort NextInstruction() => (ushort)(this.ip + 1);
 
+        // By default we just go into infinite loop here, default
+        // value of `next` is the current instruction pointer.
+        // So if we don't do anything in this method we'll be F'ed.
         var next = this.ip;
 
         // Get some more friendly representations
