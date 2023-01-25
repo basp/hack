@@ -113,36 +113,58 @@ public class SecondPassParseListener : HackBaseListener
     public override void ExitCompute(
         [NotNull] HackParser.ComputeContext context)
     {
-        var instruction = this.Compile(context);
-        this.instructions.Add(instruction);
+        var ins = this.Compile(context);
+        this.instructions.Add(ins);
 
         // debug
-        var str = Convert.ToString(instruction, 2);
+        var str = Convert.ToString(ins, 2);
         var prefix = str.Substring(0, 4);
         var a = str.Substring(3, 1);
         var comp = str.Substring(4, 6);
         var dest = str.Substring(10, 3);
         var jump = str.Substring(13, 3);
         var lhs = $"{context.GetText()}".PadRight(DebugOutputPadding);
-        var rhs = $"{a}.{comp}.{dest}.{jump} ({instruction})";
+
+        // Computations where a=1 involve M and D
+        // otherwise they will invole D and A.
+        // Handy for comparing computed bit patterns 
+        // with published patterns.
+        var rhs = $"{a}.{comp}.{dest}.{jump} ({ins})";
         Console.WriteLine($"{lhs} -> {rhs}");
     }
 
     public override void ExitAddress(
         [NotNull] HackParser.AddressContext context)
     {
-        var instruction = Compile(context);
-        this.instructions.Add(instruction);
+        var ins = Compile(context);
+        this.instructions.Add(ins);
 
-        // debug
         var lhs = $"{context.GetText()}".PadRight(DebugOutputPadding);
-        var rhs = $"{instruction}";
+        var rhs = $"{ins}";
+
         Console.WriteLine($"{lhs} -> {rhs}");
     }
 
     private ushort Compile(
         [NotNull] HackParser.ComputeContext context)
     {
+        // A C-instruction consists of three parts:
+        //
+        // * The `comp` (compute) part which specifies which
+        //   operation will be executed. This part is
+        //   mandatory and will be forced by the parser.
+        // * The `dest` (destination) part which specifies
+        //   where the result of the instruction will go.
+        //   This part is optional.
+        // * The `jump` part which specifies
+        //   where to jump to depending on whether the 
+        //   current output of the ALU is zero or one.
+        //   This part is optional as well.
+        //
+        // The three parts are packed into a 16-bit value.
+        // Note that for C-instructions the three high bits
+        // will always be set to 1.
+
         var comp = computations[context.comp().GetText()];
 
         var dest = context.dest() != null
@@ -159,10 +181,21 @@ public class SecondPassParseListener : HackBaseListener
     private ushort Compile(
         [NotNull] HackParser.AddressContext context)
     {
+        // @-instructions always set the A register
+        // with either a literal value or a symbolic
+        // value representing an address in memory.
+        // Additionally, they always have their high
+        // bit set to zero so their max value is
+        // limited to 32767 (or 0111 1111 1111 1111
+        // in binary).
         const ushort max = 0b0111_1111_1111_1111;
         var address = GetAddressValue(context);
         if (address > max)
         {
+            // The obtained address value is beyond
+            // the limites of what we are able to
+            // simulate. At this point we'll just
+            // have to give up.
             throw new InvalidOperationException();
         }
 
@@ -191,7 +224,7 @@ public class SecondPassParseListener : HackBaseListener
 
     private ushort GetSymbolAddress(string name)
     {
-        ushort address; 
+        ushort address;
 
         // See if we can obtain a reference by looking
         // into the known symbols table.
@@ -209,6 +242,10 @@ public class SecondPassParseListener : HackBaseListener
 
     private void InitializeSymbols(IDictionary<string, ushort> labels)
     {
+        // Initialize the symbols table with a list 
+        // of symbols obtained from the first pass.
+        // We need to explicitly add these otherwise
+        // we might up clobbering any built-in symbols.
         this.symbols = DefaultSymbols.ToDictionary(x => x.Key, x => x.Value);
         foreach (var symbol in labels)
         {
