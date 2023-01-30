@@ -1,0 +1,5 @@
+module ALU
+    in: x[16], y[16], zx, nx, zy, ny, f, no;
+    out: out;
+    pre_x := 
+end

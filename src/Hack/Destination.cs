@@ -1,5 +1,7 @@
 namespace Hack;
 
+using System;
+
 [Flags]
 public enum Destination
 {
@@ -12,7 +14,7 @@ public enum Destination
     M = Memory,
     D = Destination,
 
-    DM = Destination | Memory,
+    MD = Destination | Memory,
 
     AM = Address | Memory,
 
