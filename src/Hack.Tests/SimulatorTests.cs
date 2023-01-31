@@ -16,9 +16,9 @@ public class SimulatorTests
             Compiler.Compile(0),
             Compiler.Compile(Computation.Memory, Destination.D),
             Compiler.Compile(1),
-            Compiler.Compile(Computation.DestinationPlusMemory, Destination.D),
+            Compiler.Compile(Computation.DataPlusMemory, Destination.D),
             Compiler.Compile(address),
-            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Compile(Computation.Data, Destination.M),
             Compiler.Halt,
         };
 
@@ -39,9 +39,9 @@ public class SimulatorTests
             Compiler.Compile(0),
             Compiler.Compile(Computation.Memory, Destination.D),
             Compiler.Compile(1),
-            Compiler.Compile(Computation.DestinationMinusMemory, Destination.D),
+            Compiler.Compile(Computation.DataMinusMemory, Destination.D),
             Compiler.Compile(address),
-            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Compile(Computation.Data, Destination.M),
             Compiler.Halt,
         };
 
@@ -62,9 +62,9 @@ public class SimulatorTests
             Compiler.Compile(0),
             Compiler.Compile(Computation.Memory, Destination.D),
             Compiler.Compile(1),
-            Compiler.Compile(Computation.DestinationPlusMemory, Destination.D),
+            Compiler.Compile(Computation.DataPlusMemory, Destination.D),
             Compiler.Compile(address),
-            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Compile(Computation.Data, Destination.M),
             Compiler.Halt,
         };
 
@@ -85,9 +85,9 @@ public class SimulatorTests
             Compiler.Compile(0),
             Compiler.Compile(Computation.Memory, Destination.D),
             Compiler.Compile(1),
-            Compiler.Compile(Computation.DestinationPlusMemory, Destination.D),
+            Compiler.Compile(Computation.DataPlusMemory, Destination.D),
             Compiler.Compile(address),
-            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Compile(Computation.Data, Destination.M),
             Compiler.Halt,
         };
 
