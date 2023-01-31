@@ -3,12 +3,12 @@ namespace Hack.Tests;
 public class Compiler
 {
     public static short Halt =>
-        Compile(Computation.Zero, jump: Jump.Unconditionally);
+        Compile(Computation.Zero, jump: Jump.Always);
 
     public static short Compile(
         Computation comp,
         Destination dest = Destination.None,
-        Jump jump = Jump.None)
+        Jump jump = Jump.Never)
     {
         short r = 0;
         r = (short)(r

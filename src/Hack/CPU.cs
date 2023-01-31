@@ -5,29 +5,14 @@ public class CPU
     private static readonly IDictionary<short, Func<CPU, bool>> jumps =
         new Dictionary<short, Func<CPU, bool>>
         {
-            // Never jump
-            [0b000] = cpu => false,
-
-            // Jump if out > 0
-            [0b001] = cpu => !cpu.ALU.NG && !cpu.ALU.ZR,
-
-            // Jump if out == 0
-            [0b010] = cpu => cpu.ALU.ZR,
-
-            // Jump if out >= 0
-            [0b011] = cpu => cpu.ALU.ZR || !cpu.ALU.NG,
-
-            // Jump if out < 0
-            [0b100] = cpu => cpu.ALU.NG,
-
-            // Jump if out != 0
-            [0b101] = cpu => !cpu.ALU.ZR,
-
-            // Jump if out <= 0
-            [0b110] = cpu => cpu.ALU.ZR || cpu.ALU.NG,
-
-            // Always jump
-            [0b111] = cpu => true,
+            [(short)Jump.Never] = cpu => false,
+            [(short)Jump.GT] = cpu => !cpu.ALU.NG && !cpu.ALU.ZR,
+            [(short)Jump.EQ] = cpu => cpu.ALU.ZR,
+            [(short)Jump.GE] = cpu => cpu.ALU.ZR || !cpu.ALU.NG,
+            [(short)Jump.LT] = cpu => cpu.ALU.NG,
+            [(short)Jump.NE] = cpu => !cpu.ALU.ZR,
+            [(short)Jump.LE] = cpu => cpu.ALU.ZR || cpu.ALU.NG,
+            [(short)Jump.Always] = cpu => true,
         };
 
     private short a;

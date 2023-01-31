@@ -127,7 +127,7 @@ public class SimulatorTests
     public void TestHaltingJump()
     {
         var prog = new ROM32K(
-            Compiler.Compile(Computation.Zero, jump: Jump.Unconditionally));
+            Compiler.Compile(Computation.Zero, jump: Jump.Always));
 
         var sim = new Simulator(prog);
 
@@ -176,7 +176,7 @@ public class SimulatorTests
             new[]
             {
                 Compiler.Compile(130),
-                Compiler.Compile(Computation.Zero, jump: Jump.Unconditionally),
+                Compiler.Compile(Computation.Zero, jump: Jump.Always),
             },
             cpu =>
             {

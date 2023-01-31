@@ -15,7 +15,7 @@ public class CompilerTests
                 Instruction = Compiler.Compile(
                     Computation.Zero,
                     Destination.None,
-                    Jump.None),
+                    Jump.Never),
                 Expected = 0b111_0_101010_000_000,
             },
             new
@@ -31,7 +31,7 @@ public class CompilerTests
                 Instruction = Compiler.Compile(
                     Computation.AddressPlusOne,
                     Destination.MD,
-                    Jump.LTE),
+                    Jump.LE),
                 Expected = 0b111_0_110010_011_110,
             },
             new

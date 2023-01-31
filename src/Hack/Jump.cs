@@ -1,14 +1,14 @@
 namespace Hack;
 
 [Flags]
-public enum Jump
+public enum Jump : short
 {
-    None = 0b000,
-    GTE = GT | EQ,   
+    Never = 0b000,
     GT = 0b001,
     EQ = 0b010,
     LT = 0b100,
+    GE = GT | EQ,   
     NE = LT | GT,
-    LTE = LT | EQ,    
-    Unconditionally = 0b111,
+    LE = LT | EQ,    
+    Always = 0b111,
 }

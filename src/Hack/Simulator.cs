@@ -22,7 +22,7 @@ public class Simulator
     public bool IsHalted =>
         this.CPU.Instruction.IsComputation 
             ? this.CPU.Instruction.Comp == (short)Computation.Zero &&
-              this.CPU.Instruction.Jump == (short)Jump.Unconditionally
+              this.CPU.Instruction.Jump == (short)Jump.Always
             : false;
         
 
