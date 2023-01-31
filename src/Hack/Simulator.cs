@@ -1,11 +1,5 @@
 namespace Hack;
 
-// The A register can be used to either hold memory
-// address or a code address (to an instruction).
-// A C-instruction that may cause a jump should not
-// contain any references to M and an expression
-// that has any references to M should not contain
-// a jump specification.
 public class Simulator
 {
     public ROM32K Program { get; }

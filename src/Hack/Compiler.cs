@@ -2,6 +2,9 @@ namespace Hack.Tests;
 
 public class Compiler
 {
+    public static short Halt =>
+        Compile(Computation.Zero, jump: Jump.Unconditionally);
+
     public static short Compile(
         Computation comp,
         Destination dest = Destination.None,

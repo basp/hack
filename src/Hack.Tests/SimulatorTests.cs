@@ -1,14 +1,59 @@
 namespace Hack.Tests;
 
 using System;
-using System.Linq;
 using Hack;
 using Xunit;
 
 public class SimulatorTests
 {
     [Fact]
-    public void TestSimulator()
+    public void TestSimulator3()
+    {
+        const short address = 100;
+
+        var instructions = new[]
+        {
+            Compiler.Compile(0),
+            Compiler.Compile(Computation.Memory, Destination.D),
+            Compiler.Compile(1),
+            Compiler.Compile(Computation.DestinationPlusMemory, Destination.D),
+            Compiler.Compile(address),
+            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Halt,
+        };
+
+        TestSimulator(
+            instructions,
+            new short[] { -2, -3 },
+            address,
+            expected: -5);
+    }
+
+    [Fact]
+    public void TestSimulator2()
+    {
+        const short address = 100;
+
+        var instructions = new[]
+        {
+            Compiler.Compile(0),
+            Compiler.Compile(Computation.Memory, Destination.D),
+            Compiler.Compile(1),
+            Compiler.Compile(Computation.DestinationPlusMemory, Destination.D),
+            Compiler.Compile(address),
+            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Halt,
+        };
+
+        TestSimulator(
+            instructions,
+            new short[] { 2, 3 },
+            address,
+            expected: 5);
+    }
+
+    [Fact]
+    public void TestSimulatorX()
     {
         var instructions = new[]
         {
@@ -18,32 +63,18 @@ public class SimulatorTests
             Compiler.Compile(Computation.Zero, Destination.Memory),
             Compiler.Compile(2),
             Compiler.Compile(Computation.MinusOne, Destination.Memory),
-            Compiler.Compile(Computation.Zero, jump: Jump.Unconditionally),
+            Compiler.Halt,
         };
 
-        var prog = new ROM32K(instructions);
-        var sim = new Simulator(prog);
-
-        for (var i = 0; i < instructions.Length; i++)
-        {
-            Assert.False(sim.IsHalted);
-            sim.Cycle();
-        }
-
-        Assert.True(sim.IsHalted);
-
-        var tests = new []
-        {
-            (0, 1),
-            (1, 0),
-            (2, -1),
-        };
-
-        foreach(var (address, expected) in tests)
-        {
-            sim.Data.Address = (short)address;
-            Assert.Equal(expected, sim.Data.Out);
-        }
+        TestSimulator(
+            instructions,
+            new short[0],
+            new (short, short)[]
+            {
+                (0, 1),
+                (1, 0),
+                (2, -1),
+            });
     }
 
     [Fact]
@@ -145,6 +176,37 @@ public class SimulatorTests
             alu.Y = y;
             alu.Op = t.op;
             Assert.Equal((short)t.expected, alu.Out);
+        }
+    }
+
+    private void TestSimulator(
+        short[] program,
+        short[] data,
+        short address,
+        short expected) =>
+        TestSimulator(program, data, new[] { (address, expected) });
+
+    private void TestSimulator(
+        short[] program,
+        short[] data,
+        (short address, short expected)[] tests)
+    {
+        var rom = new ROM32K(program);
+        var ram = new RAM32K(data);
+        var sim = new Simulator(rom, ram);
+
+        for (var i = 0; i < program.Length; i++)
+        {
+            Assert.False(sim.IsHalted);
+            sim.Cycle();
+        }
+
+        Assert.True(sim.IsHalted);
+
+        foreach (var (address, expected) in tests)
+        {
+            sim.Data.Address = address;
+            Assert.Equal(expected, sim.Data.Out);
         }
     }
 
