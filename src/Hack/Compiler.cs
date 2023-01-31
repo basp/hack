@@ -21,7 +21,5 @@ public class Compiler
     }
 
     public static short Compile(short address) =>
-        (short)(
-            0b0111_1111_1111_1111
-            & address);
+        (short)(0b0111_1111_1111_1111 & address);
 }
