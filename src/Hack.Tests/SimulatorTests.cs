@@ -7,6 +7,52 @@ using Xunit;
 public class SimulatorTests
 {
     [Fact]
+    public void TestSimulator5()
+    {
+        const short address = 130;
+
+        var instructions = new[]
+        {
+            Compiler.Compile(0),
+            Compiler.Compile(Computation.Memory, Destination.D),
+            Compiler.Compile(1),
+            Compiler.Compile(Computation.DestinationPlusMemory, Destination.D),
+            Compiler.Compile(address),
+            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Halt,
+        };
+
+        TestSimulator(
+            instructions,
+            new short[] { 2, -3 },
+            address,
+            expected: -1);
+    }
+
+    [Fact]
+    public void TestSimulator4()
+    {
+        const short address = 130;
+
+        var instructions = new[]
+        {
+            Compiler.Compile(0),
+            Compiler.Compile(Computation.Memory, Destination.D),
+            Compiler.Compile(1),
+            Compiler.Compile(Computation.DestinationMinusMemory, Destination.D),
+            Compiler.Compile(address),
+            Compiler.Compile(Computation.Destination, Destination.M),
+            Compiler.Halt,
+        };
+
+        TestSimulator(
+            instructions,
+            new short[] { 2, -3 },
+            address,
+            expected: 5);
+    }
+
+    [Fact]
     public void TestSimulator3()
     {
         const short address = 100;
@@ -53,7 +99,7 @@ public class SimulatorTests
     }
 
     [Fact]
-    public void TestSimulatorX()
+    public void TestSimulator1()
     {
         var instructions = new[]
         {
