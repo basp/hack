@@ -23,7 +23,7 @@ public class CompilerTests
                 Instruction = Compiler.Compile(
                     Computation.One,
                     Destination.A,
-                    Jump.GreaterThan),
+                    Jump.GT),
                 Expected = 0b111_0_111111_100_001,
             },
             new
@@ -31,7 +31,7 @@ public class CompilerTests
                 Instruction = Compiler.Compile(
                     Computation.AddressPlusOne,
                     Destination.MD,
-                    Jump.LessThanOrEqual),
+                    Jump.LTE),
                 Expected = 0b111_0_110010_011_110,
             },
             new
@@ -39,7 +39,7 @@ public class CompilerTests
                 Instruction = Compiler.Compile(
                     Computation.MinusOne,
                     Destination.AMD,
-                    Jump.NotEqual),
+                    Jump.NE),
                 Expected = 0b111_0_111010_111_101,
             }
         };
