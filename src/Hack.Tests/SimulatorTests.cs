@@ -58,11 +58,11 @@ public class SimulatorTests
         var instructions = new[]
         {
             Compiler.Compile(0),
-            Compiler.Compile(Computation.One, Destination.Memory),
+            Compiler.Compile(Computation.One, Destination.M),
             Compiler.Compile(1),
-            Compiler.Compile(Computation.Zero, Destination.Memory),
+            Compiler.Compile(Computation.Zero, Destination.M),
             Compiler.Compile(2),
-            Compiler.Compile(Computation.MinusOne, Destination.Memory),
+            Compiler.Compile(Computation.MinusOne, Destination.M),
             Compiler.Halt,
         };
 

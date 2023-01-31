@@ -6,19 +6,18 @@ using System;
 public enum Destination
 {
     None = 0,
-    Memory = 1,
-    Destination = 2,
-    Address = 4,
 
-    A = Address,
-    M = Memory,
-    D = Destination,
+    M = 1,
+    
+    D = 2,
 
-    MD = Destination | Memory,
+    A = 4,
 
-    AM = Address | Memory,
+    MD = M | D,
 
-    AD = Address | Destination,
+    AM = A | M,
 
-    AMD = Address | Memory | Destination,
+    AD = A | D,
+
+    AMD = A | M | D,
 }
