@@ -1,62 +1,112 @@
 namespace Hack.Tests;
 
+using System;
+using System.Linq;
 using Hack;
 using Xunit;
-
-public class CompilerTests
-{
-    [Fact]
-    public void TestCompileCInstruction()
-    {
-        var tests = new[]
-        {
-            new
-            {
-                Instruction = Compiler.CompileC(
-                    Computation.Zero,
-                    Destination.None,
-                    Jump.None),
-                Expected = 0b111_0_101010_000_000,
-            },
-            new
-            {
-                Instruction = Compiler.CompileC(
-                    Computation.One,
-                    Destination.A,
-                    Jump.GreaterThan),
-                Expected = 0b111_0_111111_100_001,
-            },
-            new
-            {
-                Instruction = Compiler.CompileC(
-                    Computation.AddressPlusOne,
-                    Destination.MD,
-                    Jump.LessThanOrEqual),
-                Expected = 0b111_0_110010_011_110,
-            },
-            new
-            {
-                Instruction = Compiler.CompileC(
-                    Computation.MinusOne,
-                    Destination.AMD,
-                    Jump.NotEqual),
-                Expected = 0b111_0_111010_111_101,
-            }
-        };
-
-        foreach (var t in tests)
-        {
-            Assert.Equal(t.Instruction, (short)t.Expected);
-        }
-    }
-}
 
 public class SimulatorTests
 {
     [Fact]
+    public void TestSimulator()
+    {
+        var instructions = new[]
+        {
+            Compiler.Compile(0),
+            Compiler.Compile(Computation.One, Destination.Memory),
+            Compiler.Compile(1),
+            Compiler.Compile(Computation.Zero, Destination.Memory),
+            Compiler.Compile(2),
+            Compiler.Compile(Computation.MinusOne, Destination.Memory),
+            Compiler.Compile(Computation.Zero, jump: Jump.Unconditionally),
+        };
+
+        var prog = new ROM32K(instructions);
+        var sim = new Simulator(prog);
+
+        for (var i = 0; i < instructions.Length; i++)
+        {
+            Assert.False(sim.IsHalted);
+            sim.Cycle();
+        }
+
+        Assert.True(sim.IsHalted);
+
+        var tests = new []
+        {
+            (0, 1),
+            (1, 0),
+            (2, -1),
+        };
+
+        foreach(var (address, expected) in tests)
+        {
+            sim.Data.Address = (short)address;
+            Assert.Equal(expected, sim.Data.Out);
+        }
+    }
+
+    [Fact]
+    public void TestHaltingJump()
+    {
+        var prog = new ROM32K(
+            Compiler.Compile(Computation.Zero, jump: Jump.Unconditionally));
+
+        var sim = new Simulator(prog);
+
+        sim.Cycle();
+
+        Assert.True(sim.IsHalted);
+    }
+
+    [Fact]
     public void TestCPU()
     {
+        TestInstruction(
+            new CPU { InM = 130 },
+            Compiler.Compile(Computation.Memory, Destination.D),
+            cpu => Assert.Equal(130, cpu.D));
 
+        TestInstruction(
+            new CPU { InM = 130 },
+            Compiler.Compile(Computation.Memory, Destination.A),
+            cpu => Assert.Equal(130, cpu.A));
+
+        TestInstruction(
+            new CPU { InM = 130 },
+            Compiler.Compile(Computation.Memory, Destination.AD),
+            cpu =>
+            {
+                Assert.Equal(130, cpu.A);
+                Assert.Equal(130, cpu.D);
+                Assert.False(cpu.WriteM);
+            });
+
+        TestInstruction(
+            new CPU { InM = 130 },
+            Compiler.Compile(Computation.Memory, Destination.AMD),
+            cpu =>
+            {
+                Assert.Equal(130, cpu.A);
+                Assert.Equal(130, cpu.D);
+                Assert.Equal(130, cpu.AddressM);
+                Assert.Equal(130, cpu.OutM);
+                Assert.True(cpu.WriteM);
+            });
+
+        TestInstructions(
+            new CPU(),
+            new[]
+            {
+                Compiler.Compile(130),
+                Compiler.Compile(Computation.Zero, jump: Jump.Unconditionally),
+            },
+            cpu =>
+            {
+                Assert.Equal(0, cpu.OutM);
+                Assert.Equal(130, cpu.PC);
+                Assert.False(cpu.WriteM);
+            });
     }
 
     [Fact]
@@ -96,5 +146,25 @@ public class SimulatorTests
             alu.Op = t.op;
             Assert.Equal((short)t.expected, alu.Out);
         }
+    }
+
+    private void TestInstruction(
+        CPU cpu,
+        short instruction,
+        Action<CPU> assert) =>
+        TestInstructions(cpu, new[] { instruction }, assert);
+
+    private void TestInstructions(
+        CPU cpu,
+        short[] instructions,
+        Action<CPU> assert)
+    {
+        foreach (var i in instructions)
+        {
+            cpu.Instruction = i;
+            cpu.Cycle();
+        }
+
+        assert(cpu);
     }
 }

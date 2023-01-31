@@ -2,7 +2,7 @@ namespace Hack.Tests;
 
 public class Compiler
 {
-    public static short CompileC(
+    public static short Compile(
         Computation comp,
         Destination dest = Destination.None,
         Jump jump = Jump.None)
@@ -17,7 +17,7 @@ public class Compiler
         return r;
     }
 
-    public static short CompileA(short address) =>
+    public static short Compile(short address) =>
         (short)(
             0b0111_1111_1111_1111
             & address);
