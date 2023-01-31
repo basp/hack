@@ -3,39 +3,39 @@ using System.Diagnostics.CodeAnalysis;
 
 public struct BitVector32 : IEquatable<BitVector32>
 {
-	public readonly struct Section
-	{
-		private readonly int offset;
+    public readonly struct Section
+    {
+        private readonly int offset;
 
-		private readonly int mask;
+        private readonly int mask;
 
-		public Section(int sizeInBits, int offset)
-		{
-			this.mask = ((1 << sizeInBits) - 1) << offset;
-			this.offset = offset;
-		}
+        public Section(int sizeInBits, int offset)
+        {
+            this.mask = ((1 << sizeInBits) - 1) << offset;
+            this.offset = offset;
+        }
 
         public int Mask => this.mask;
 
         public int Offset => this.offset;
-	}
-	
-	private int data;
-	
-	public BitVector32(int data)
-	{
-		this.data = data;
-	}
-	
-	public int this[Section section]
-	{
-		get => (this.data & section.Mask) >> section.Offset;
-		set
-		{
+    }
+
+    private int data;
+
+    public BitVector32(int data)
+    {
+        this.data = data;
+    }
+
+    public int this[Section section]
+    {
+        get => (this.data & section.Mask) >> section.Offset;
+        set
+        {
             this.data &= ~section.Mask;
             this.data |= (value << section.Offset);
-		}
-	}
+        }
+    }
 
     public int Data => this.data;
 
@@ -48,11 +48,11 @@ public struct BitVector32 : IEquatable<BitVector32>
     public static Section CreateSection(int sizeInBits, int offset) =>
         new Section(sizeInBits, offset);
 
-	public override string ToString() =>
+    public override string ToString() =>
         string.Concat(
             nameof(BitVector32),
             "{",
-		    Convert.ToString(this.data, 2).PadLeft(sizeof(int) * 8, '0'),
+            Convert.ToString(this.data, 2).PadLeft(sizeof(int) * 8, '0'),
             "}");
 
     public override int GetHashCode() =>
@@ -67,7 +67,7 @@ public struct BitVector32 : IEquatable<BitVector32>
 
         return false;
     }
-    
+
     public bool Equals(BitVector32 other) =>
         this.data == other.data;
 }
