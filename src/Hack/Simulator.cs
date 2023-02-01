@@ -20,11 +20,19 @@ public class Simulator
     }
 
     public bool IsHalted =>
-        this.CPU.Instruction.IsComputation 
+        this.CPU.Instruction.IsComputation
             ? this.CPU.Instruction.Comp == (short)Computation.Zero &&
-              this.CPU.Instruction.Jump == (short)Jump.Always
+              this.CPU.Instruction.Jump == (short)Jump.Always &&
+              this.CPU.PC == (this.Program.Address - 1)
             : false;
-        
+
+    public void Run()
+    {
+        while (!this.IsHalted)
+        {
+            this.Cycle();
+        }
+    }
 
     public void Cycle()
     {
@@ -34,29 +42,19 @@ public class Simulator
 
     public void Tick()
     {
-        // Load next instruction from ROM
         this.Program.Address = this.CPU.PC;
         this.CPU.Instruction = this.Program.Out;
-
-        // Load the CPU memory input from RAM
         this.Data.Address = this.CPU.AddressM;
         this.CPU.InM = this.Data.Out;
-
-        // Perform a cycle on the GPU
-        // to decode and evaluate the 
-        // instruction
-        this.CPU.Cycle();
+        this.CPU.Tick();
     }
 
     public void Tock()
     {
-        // Setup the RAM with CPU outputs
         this.Data.Load = this.CPU.WriteM;
         this.Data.Address = this.CPU.AddressM;
         this.Data.In = this.CPU.OutM;
-
-        // Cycle the RAM to store the CPU
-        // memory output
         this.Data.Cycle();
+        this.CPU.Tock();
     }
 }

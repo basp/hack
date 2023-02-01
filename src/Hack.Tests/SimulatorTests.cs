@@ -19,6 +19,7 @@ public class SimulatorTests
             Compiler.Compile(Computation.DataPlusMemory, Destination.D),
             Compiler.Compile(address),
             Compiler.Compile(Computation.Data, Destination.M),
+            Compiler.Compile(6),
             Compiler.Halt,
         };
 
@@ -42,6 +43,7 @@ public class SimulatorTests
             Compiler.Compile(Computation.DataMinusMemory, Destination.D),
             Compiler.Compile(address),
             Compiler.Compile(Computation.Data, Destination.M),
+            Compiler.Compile(6),
             Compiler.Halt,
         };
 
@@ -65,6 +67,7 @@ public class SimulatorTests
             Compiler.Compile(Computation.DataPlusMemory, Destination.D),
             Compiler.Compile(address),
             Compiler.Compile(Computation.Data, Destination.M),
+            Compiler.Compile(6),
             Compiler.Halt,
         };
 
@@ -88,6 +91,7 @@ public class SimulatorTests
             Compiler.Compile(Computation.DataPlusMemory, Destination.D),
             Compiler.Compile(address),
             Compiler.Compile(Computation.Data, Destination.M),
+            Compiler.Compile(6),
             Compiler.Halt,
         };
 
@@ -109,6 +113,7 @@ public class SimulatorTests
             Compiler.Compile(Computation.Zero, Destination.M),
             Compiler.Compile(2),
             Compiler.Compile(Computation.MinusOne, Destination.M),
+            Compiler.Compile(6),
             Compiler.Halt,
         };
 
@@ -127,10 +132,12 @@ public class SimulatorTests
     public void TestHaltingJump()
     {
         var prog = new ROM32K(
+            Compiler.Compile(0),
             Compiler.Compile(Computation.Zero, jump: Jump.Always));
 
         var sim = new Simulator(prog);
 
+        sim.Cycle();
         sim.Cycle();
 
         Assert.True(sim.IsHalted);
@@ -142,20 +149,20 @@ public class SimulatorTests
         TestInstruction(
             new CPU { InM = 130 },
             Compiler.Compile(Computation.Memory, Destination.D),
-            cpu => Assert.Equal(130, cpu.D));
+            cpu => Assert.Equal(130, cpu.D.Out));
 
         TestInstruction(
             new CPU { InM = 130 },
             Compiler.Compile(Computation.Memory, Destination.A),
-            cpu => Assert.Equal(130, cpu.A));
+            cpu => Assert.Equal(130, cpu.A.Out));
 
         TestInstruction(
             new CPU { InM = 130 },
             Compiler.Compile(Computation.Memory, Destination.AD),
             cpu =>
             {
-                Assert.Equal(130, cpu.A);
-                Assert.Equal(130, cpu.D);
+                Assert.Equal(130, cpu.A.Out);
+                Assert.Equal(130, cpu.D.Out);
                 Assert.False(cpu.WriteM);
             });
 
@@ -164,8 +171,8 @@ public class SimulatorTests
             Compiler.Compile(Computation.Memory, Destination.AMD),
             cpu =>
             {
-                Assert.Equal(130, cpu.A);
-                Assert.Equal(130, cpu.D);
+                Assert.Equal(130, cpu.A.Out);
+                Assert.Equal(130, cpu.D.Out);
                 Assert.Equal(130, cpu.AddressM);
                 Assert.Equal(130, cpu.OutM);
                 Assert.True(cpu.WriteM);
@@ -241,14 +248,8 @@ public class SimulatorTests
         var ram = new RAM32K(data);
         var sim = new Simulator(rom, ram);
 
-        for (var i = 0; i < program.Length; i++)
-        {
-            Assert.False(sim.IsHalted);
-            sim.Cycle();
-        }
-
+        sim.Run();
         Assert.True(sim.IsHalted);
-
         foreach (var (address, expected) in tests)
         {
             sim.Data.Address = address;

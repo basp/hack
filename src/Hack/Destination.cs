@@ -3,7 +3,7 @@ namespace Hack;
 using System;
 
 [Flags]
-public enum Destination
+public enum Destination : short
 {
     /// <summary>
     /// The result of the computation should be ignored.

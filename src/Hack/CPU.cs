@@ -15,21 +15,11 @@ public class CPU
             [(short)Jump.Always] = cpu => true,
         };
 
-    private short a;
-
-    private short d;
-
     private bool writeM;
 
-    /// <summary>
-    /// Gets the value of the A register.
-    /// </summary>
-    public short A => this.a;
+    public Register A { get; } = new Register();
 
-    /// <summary>
-    /// Gets the value of the D register.
-    /// </summary>
-    public short D => this.d;
+    public Register D { get; } = new Register();
 
     /// <summary>
     /// Gets the ALU.
@@ -40,7 +30,7 @@ public class CPU
     /// Gets or sets the value coming in from memory.
     /// </summary>
     public short InM { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the instruction.
     /// </summary>
@@ -59,40 +49,54 @@ public class CPU
     /// <summary>
     /// Gets the memory address where a value would be stored.
     /// </summary>
-    public short AddressM => this.a;
+    public short AddressM => this.A.Out;
 
     /// <summary>
     /// Gets the program counter indicating the next instruction.
     /// </summary>
     public short PC { get; private set; }
 
+    public void Tick()
+    {
+        if (this.Instruction.IsComputation)
+        {
+            this.ALU.Op = (byte)this.Instruction.Comp;
+            this.ALU.X = this.D.Out;
+            this.ALU.Y = this.Instruction.IsAlpha
+                ? this.InM
+                : this.A.Out;
+            this.writeM = (this.Instruction.Dest & 0b001) == 0b001;
+            this.D.In = this.ALU.Out;
+            this.A.In = this.ALU.Out;
+            this.D.Load = (this.Instruction.Dest & 0b010) == 0b010;
+            this.A.Load = (this.Instruction.Dest & 0b100) == 0b100; 
+            this.PC = jumps[this.Instruction.Jump](this)
+                ? this.A.Out
+                : (short)(this.PC + 1);
+        }
+        else
+        {
+            this.A.Load = true;
+            this.A.In = this.Instruction.Address;
+            this.PC += 1;
+        }
+
+        this.A.Tick();
+        this.D.Tick();
+    }
+
+    public void Tock()
+    {
+        this.A.Tock();
+        this.D.Tock();
+    }
+
     /// <summary>
     /// Performs one clock-cycle of work on the CPU.
     /// </summary>
     public void Cycle()
     {
-        if (this.Instruction.IsComputation)
-        {
-            this.ALU.Op = (byte)this.Instruction.Comp;            
-            this.ALU.X = this.d;
-            this.ALU.Y = this.Instruction.IsAlpha
-                ? this.InM
-                : this.a;
-            this.writeM = (this.Instruction.Dest & 0b001) == 0b001;
-            this.d = (this.Instruction.Dest & 0b010) == 0b010
-                ? this.ALU.Out
-                : this.d;
-            this.a = (this.Instruction.Dest & 0b100) == 0b100
-                ? this.ALU.Out
-                : this.a;
-            this.PC = jumps[this.Instruction.Jump](this)
-                ? this.a
-                : (short)(this.PC + 1);
-        }
-        else
-        {
-            this.a = this.Instruction.Address;
-            this.PC += 1;
-        }
+        Tick();
+        Tock();
     }
 }

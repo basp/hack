@@ -1,4 +1,4 @@
-namespace Hack.Tests;
+namespace Hack;
 
 public class Compiler
 {
