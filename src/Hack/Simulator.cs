@@ -23,6 +23,11 @@ public class Simulator
         this.CPU.Instruction.IsComputation
             ? this.CPU.Instruction.Comp == (short)Computation.Zero &&
               this.CPU.Instruction.Jump == (short)Jump.Always &&
+              // If the jump destination is the previous instruction
+              // and we know that this is an unconditional jump then
+              // we also know that we are in a tight infinite loop.
+              // At this point it is pretty safe to signal the halted
+              // flag.
               this.CPU.PC == (this.Program.Address - 1)
             : false;
 
