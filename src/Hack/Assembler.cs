@@ -114,7 +114,33 @@ public class Assembler
                 ["JMP"] = Jump.Always,
             };
 
-        private readonly IDictionary<string, short> symbols =
+        private readonly IDictionary<string, short> builtin =
+            new Dictionary<string, short>
+            {
+                ["SP"] = 0,
+                ["LCL"] = 1,
+                ["ARG"] = 2,
+                ["THIS"] = 3,
+                ["THAT"] = 4,
+                ["R0"] = 0,
+                ["R1"] = 1,
+                ["R2"] = 2,
+                ["R3"] = 3,
+                ["R4"] = 4,
+                ["R5"] = 5,
+                ["R6"] = 6,
+                ["R7"] = 7,
+                ["R8"] = 8,
+                ["R9"] = 9,
+                ["R10"] = 10,
+                ["R11"] = 11,
+                ["R12"] = 12,
+                ["R13"] = 13,
+                ["R14"] = 14,
+                ["R15"] = 15,
+            };
+
+        private readonly IDictionary<string, short> variables =
             new Dictionary<string, short>();
 
         private readonly IDictionary<string, short> labels;
@@ -145,28 +171,39 @@ public class Assembler
             this.instructions.Add(ins);
         }
 
+        private short GetSymbolValue(string symbol)
+        {
+            short value;
+
+            if (this.labels.TryGetValue(symbol, out value))
+            {
+                return value;
+            }
+
+            if (this.builtin.TryGetValue(symbol, out value))
+            {
+                return value;
+            }
+
+            if (this.variables.TryGetValue(symbol, out value))
+            {
+                return value;
+            }
+
+            value = (short)(this.builtin["R15"] + this.variables.Count + 1);
+            this.variables.Add(symbol, value);
+            return value;
+        }
+
         public override void ExitAddress(
             [NotNull] HackParser.AddressContext context)
         {
+            // Strip the '@' symbol from the token text
             var text = context.GetText().Substring(1);
 
-            // First see if we can parse it as a short
             if (!short.TryParse(text, out var address))
             {
-                // Second, check if we have a known label
-                if (!this.labels.TryGetValue(text, out address))
-                {
-                    // Third, check if we have a known symbol
-                    if (!this.symbols.TryGetValue(text, out address))
-                    {
-                        // Finally we just create the symbol
-                        var max = this.symbols.Count > 0
-                            ? this.symbols.Values.Max()
-                            : -1;
-                        address = (short)(max + 1);
-                        this.symbols.Add(text, address);
-                    }
-                }
+                address = GetSymbolValue(text);
             }
 
             var ins = Compiler.Compile(address);

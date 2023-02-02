@@ -25,11 +25,11 @@ public class AssemblerTests
 
         var tests = new[]
         {
-            Compiler.Compile(0),
+            Compiler.Compile(16),
             Compiler.Compile(Computation.One, Destination.M),
-            Compiler.Compile(1),
+            Compiler.Compile(17),
             Compiler.Compile(Computation.Zero, Destination.M),
-            Compiler.Compile(0),
+            Compiler.Compile(16),
             Compiler.Compile(Computation.Memory, Destination.D),
             Compiler.Compile(6),
             Compiler.Compile(Computation.Zero, jump: Jump.Always),
