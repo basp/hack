@@ -20,15 +20,20 @@ public class Simulator
     }
 
     public bool IsHalted =>
-        this.CPU.Instruction.IsComputation
-            ? this.CPU.Instruction.Comp == (short)Computation.Zero &&
-              this.CPU.Instruction.Jump == (short)Jump.Always &&
-              // If the jump destination is the previous instruction
-              // and we know that this is an unconditional jump then
-              // we also know that we are in a tight infinite loop.
-              // At this point it is pretty safe to signal the halted
-              // flag.
-              (this.CPU.PC == (this.Program.Address - 1) || this.CPU.PC == this.Program.Address)
+        this.CPU.Instruction.IsComputation ?   
+            this.CPU.Instruction.Comp == (short)Computation.Zero &&
+            this.CPU.Instruction.Jump == (short)Jump.Always &&
+            // If the computation is zero (0) and the jump destination is the 
+            // previous instruction or the current instruction and we know that 
+            // this is an unconditional jump then we also know that we are in a 
+            // tight infinite loop that calculates nothing.
+            // At this point it is pretty safe to signal the halted flag.
+            // The current solution is till not perfect, the halting problem is 
+            // a difficult one to solve. Even in a simulator.
+            (
+                this.CPU.PC == (this.Program.Address - 1) || 
+                this.CPU.PC == this.Program.Address
+            )
             : false;
 
     public void Run()
