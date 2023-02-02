@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.11.1" />
+    <!--
+    // This version seems to have a problem with ANSI color
+    // output on Windows consoles.
     <PackageReference Include="PowerArgs" Version="4.0.0" />
+    -->
+    <PackageReference Include="PowerArgs" Version="3.5.0" />
   </ItemGroup>
 
 </Project>

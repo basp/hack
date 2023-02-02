@@ -28,7 +28,6 @@ using IToken = Antlr4.Runtime.IToken;
 /// <see cref="ILParser"/>.
 /// </summary>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.11.1")]
-[System.CLSCompliant(false)]
 public interface IILListener : IParseTreeListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="ILParser.function"/>.
