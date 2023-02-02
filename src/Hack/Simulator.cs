@@ -28,7 +28,9 @@ public class Simulator
               // we also know that we are in a tight infinite loop.
               // At this point it is pretty safe to signal the halted
               // flag.
-              this.CPU.PC == (this.Program.Address - 1)
+              (
+                this.CPU.PC == (this.Program.Address - 1) || 
+                this.CPU.PC == this.Program.Address)
             : false;
 
     public void Run()

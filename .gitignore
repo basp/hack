@@ -5,6 +5,8 @@
 
 # ANTLR development stuff
 .antlr
+out/
+*.java
 
 # User-specific files
 *.rsuser

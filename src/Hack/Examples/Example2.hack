@@ -1,11 +1,17 @@
-    @i
-    M=1         // i = 1   
-    @sum
-    M=0         // sum = 0
-(LOOP)
-          
-
-
+    @2
+    D=A
+    @Foo.x
+    M=D
+    @3
+    D=A
+    @Foo.y
+    M=D
+    @Foo.x
+    D=M
+    @Foo.y
+    D=D+M
+    @Foo.z
+    M=D
 (END)
     @END
     0;JMP
