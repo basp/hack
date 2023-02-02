@@ -3,12 +3,22 @@ grammar IL;
 function    :   command+
             ;
 
-command     :   'push' 'constant' UINT          # pushConstant
+command     :   'push' 'local' UINT             # pushLocal
+            |   'push' 'argument' UINT          # pushArgument
+            |   'push' 'this' UINT              # pushThis
+            |   'push' 'that' UINT              # pushThat
+            |   'push' 'pointer' UINT           # pushPointer
+            |   'push' 'temp' UINT              # pushTemp
+            |   'push' 'constant' UINT          # pushConstant
             |   'push' 'static' UINT            # pushStatic
-            |   'push' SEGMENT UINT             # pushDynamic
+            |   'pop' 'local' UINT              # popLocal
+            |   'pop' 'argument' UINT           # popArgument
+            |   'pop' 'this' UINT               # popThis
+            |   'pop' 'that' UINT               # popThat
+            |   'pop' 'pointer' UINT            # popPointer
+            |   'pop' 'temp' UINT               # popTemp
             |   'pop' 'constant' UINT           # popConstant
             |   'pop' 'static' UINT             # popStatic
-            |   'pop' SEGMENT UINT              # popDynamic
             |   'add'                           # add
             |   'sub'                           # sub
             |   'neg'                           # neg
@@ -18,15 +28,6 @@ command     :   'push' 'constant' UINT          # pushConstant
             |   'and'                           # and
             |   'or'                            # or
             |   'not'                           # not
-            ;
-
-
-SEGMENT     :   'argument'
-            |   'local'
-            |   'this'
-            |   'that'
-            |   'pointer'
-            |   'temp'
             ;
 
 UINT        :   [0-9]+

@@ -40,6 +40,78 @@ public interface IILListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction([NotNull] ILParser.FunctionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>pushLocal</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPushLocal([NotNull] ILParser.PushLocalContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushLocal</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPushLocal([NotNull] ILParser.PushLocalContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPushArgument([NotNull] ILParser.PushArgumentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPushArgument([NotNull] ILParser.PushArgumentContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPushThis([NotNull] ILParser.PushThisContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPushThis([NotNull] ILParser.PushThisContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPushThat([NotNull] ILParser.PushThatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPushThat([NotNull] ILParser.PushThatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPushPointer([NotNull] ILParser.PushPointerContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPushPointer([NotNull] ILParser.PushPointerContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPushTemp([NotNull] ILParser.PushTempContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPushTemp([NotNull] ILParser.PushTempContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>pushConstant</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// </summary>
@@ -64,17 +136,77 @@ public interface IILListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitPushStatic([NotNull] ILParser.PushStaticContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>pushDynamic</c>
+	/// Enter a parse tree produced by the <c>popLocal</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterPushDynamic([NotNull] ILParser.PushDynamicContext context);
+	void EnterPopLocal([NotNull] ILParser.PopLocalContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>pushDynamic</c>
+	/// Exit a parse tree produced by the <c>popLocal</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitPushDynamic([NotNull] ILParser.PushDynamicContext context);
+	void ExitPopLocal([NotNull] ILParser.PopLocalContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPopArgument([NotNull] ILParser.PopArgumentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPopArgument([NotNull] ILParser.PopArgumentContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPopThis([NotNull] ILParser.PopThisContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPopThis([NotNull] ILParser.PopThisContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPopThat([NotNull] ILParser.PopThatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPopThat([NotNull] ILParser.PopThatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPopPointer([NotNull] ILParser.PopPointerContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPopPointer([NotNull] ILParser.PopPointerContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPopTemp([NotNull] ILParser.PopTempContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPopTemp([NotNull] ILParser.PopTempContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>popConstant</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
@@ -99,18 +231,6 @@ public interface IILListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPopStatic([NotNull] ILParser.PopStaticContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>popDynamic</c>
-	/// labeled alternative in <see cref="ILParser.command"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterPopDynamic([NotNull] ILParser.PopDynamicContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>popDynamic</c>
-	/// labeled alternative in <see cref="ILParser.command"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitPopDynamic([NotNull] ILParser.PopDynamicContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>add</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.

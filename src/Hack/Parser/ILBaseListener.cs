@@ -47,6 +47,90 @@ public partial class ILBaseListener : IILListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFunction([NotNull] ILParser.FunctionContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by the <c>pushLocal</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPushLocal([NotNull] ILParser.PushLocalContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushLocal</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPushLocal([NotNull] ILParser.PushLocalContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPushArgument([NotNull] ILParser.PushArgumentContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPushArgument([NotNull] ILParser.PushArgumentContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPushThis([NotNull] ILParser.PushThisContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPushThis([NotNull] ILParser.PushThisContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPushThat([NotNull] ILParser.PushThatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPushThat([NotNull] ILParser.PushThatContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPushPointer([NotNull] ILParser.PushPointerContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPushPointer([NotNull] ILParser.PushPointerContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>pushTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPushTemp([NotNull] ILParser.PushTempContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>pushTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPushTemp([NotNull] ILParser.PushTempContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>pushConstant</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -75,19 +159,89 @@ public partial class ILBaseListener : IILListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPushStatic([NotNull] ILParser.PushStaticContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>pushDynamic</c>
+	/// Enter a parse tree produced by the <c>popLocal</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterPushDynamic([NotNull] ILParser.PushDynamicContext context) { }
+	public virtual void EnterPopLocal([NotNull] ILParser.PopLocalContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>pushDynamic</c>
+	/// Exit a parse tree produced by the <c>popLocal</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitPushDynamic([NotNull] ILParser.PushDynamicContext context) { }
+	public virtual void ExitPopLocal([NotNull] ILParser.PopLocalContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPopArgument([NotNull] ILParser.PopArgumentContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popArgument</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPopArgument([NotNull] ILParser.PopArgumentContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPopThis([NotNull] ILParser.PopThisContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popThis</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPopThis([NotNull] ILParser.PopThisContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPopThat([NotNull] ILParser.PopThatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popThat</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPopThat([NotNull] ILParser.PopThatContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPopPointer([NotNull] ILParser.PopPointerContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popPointer</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPopPointer([NotNull] ILParser.PopPointerContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>popTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPopTemp([NotNull] ILParser.PopTempContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>popTemp</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPopTemp([NotNull] ILParser.PopTempContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>popConstant</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
@@ -116,20 +270,6 @@ public partial class ILBaseListener : IILListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPopStatic([NotNull] ILParser.PopStaticContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>popDynamic</c>
-	/// labeled alternative in <see cref="ILParser.command"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterPopDynamic([NotNull] ILParser.PopDynamicContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>popDynamic</c>
-	/// labeled alternative in <see cref="ILParser.command"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitPopDynamic([NotNull] ILParser.PopDynamicContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>add</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
