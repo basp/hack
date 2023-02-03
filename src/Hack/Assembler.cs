@@ -171,6 +171,21 @@ public class Assembler
             this.instructions.Add(ins);
         }
 
+        public override void ExitAddress(
+            [NotNull] HackParser.AddressContext context)
+        {
+            // Strip the '@' symbol from the token text
+            var text = context.GetText().Substring(1);
+
+            if (!short.TryParse(text, out var address))
+            {
+                address = GetSymbolValue(text);
+            }
+
+            var ins = Compiler.Compile(address);
+            this.instructions.Add(ins);
+        }
+
         private short GetSymbolValue(string symbol)
         {
             short value;
@@ -193,21 +208,6 @@ public class Assembler
             value = (short)(this.builtin["R15"] + this.variables.Count + 1);
             this.variables.Add(symbol, value);
             return value;
-        }
-
-        public override void ExitAddress(
-            [NotNull] HackParser.AddressContext context)
-        {
-            // Strip the '@' symbol from the token text
-            var text = context.GetText().Substring(1);
-
-            if (!short.TryParse(text, out var address))
-            {
-                address = GetSymbolValue(text);
-            }
-
-            var ins = Compiler.Compile(address);
-            this.instructions.Add(ins);
         }
     }
 }
