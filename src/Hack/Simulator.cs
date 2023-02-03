@@ -29,8 +29,6 @@ public class Simulator
             // this is an unconditional jump then we also know that we are in a 
             // tight infinite loop that calculates nothing.
             // At this point it is pretty safe to signal the halted flag.
-            // The current solution is till not perfect, the halting problem is 
-            // a difficult one to solve. Even in a simulator.
             (
                 this.CPU.PC == (this.Program.Address - 1) || 
                 this.CPU.PC == this.Program.Address
