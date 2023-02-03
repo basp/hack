@@ -28,6 +28,14 @@ public class ReadWriteArgs : ReadArgs
     public string Out { get; set; } = string.Empty;
 }
 
+public class ReadExecuteArgs : ReadArgs
+{
+    [ArgDefaultValue(1)]
+    [ArgDescription("The number of times to execute")]
+    [ArgShortcut("-x")]
+    public int Runs { get; set; }
+}
+
 [ArgExceptionBehavior(ArgExceptionPolicy.StandardExceptionHandling)]
 public class HackProgram
 {
@@ -38,7 +46,7 @@ public class HackProgram
 
     [ArgActionMethod]
     [ArgDescription("Runs a Hack binary")]
-    public void Bin(ReadArgs args)
+    public void Bin(ReadExecuteArgs args)
     {
         const int SP = 256;
         const int LCL = 2048;
@@ -56,23 +64,21 @@ public class HackProgram
 
 
         var rom = new ROM32K(instructions.ToArray());
-        var ram = new RAM32K()
-        {
-            [0] = SP,
-            [1] = LCL,
-            [2] = ARG,
-        };
-
-        // The amount of time we want this program to
-        // run using the same ram. This means that results
-        // in memory will accumulate over time as the
-        // program will overwrite and add data each run it
-        // is executed. Nothing is reset.
-        const int runs = (1 << 0);
+        var ram = new RAM32K();
 
         var start = DateTime.Now;
-        for (var i = 0; i < runs; i++)
+        for (var i = 0; i < args.Runs; i++)
         {
+            // Ensure to reset ram before each run otherwise
+            // the memory will be clobbered all over due to
+            // the ever increasing stack pointer.
+            ram = new RAM32K()
+            {
+                [0] = SP,
+                [1] = LCL,
+                [2] = ARG,
+            };
+
             var sim = new Simulator(rom, ram);
             sim.Run();
         }
@@ -80,9 +86,9 @@ public class HackProgram
         var finish = DateTime.Now;
         var duration = (finish - start);
         var seconds = Math.Round(duration.TotalSeconds, 2);
-        var avg = Math.Round(duration.TotalMilliseconds / runs, 2);
+        var avg = Math.Round(duration.TotalMilliseconds / args.Runs, 2);
 
-        Console.WriteLine($"{runs} runs in {seconds}s (avg. {avg}ms/run)");
+        Console.WriteLine($"{args.Runs} runs in {seconds}s (avg. {avg}ms/run)");
 
         for (var i = 0; i < 16; i++)
         {
@@ -127,7 +133,7 @@ public class HackProgram
     [ArgActionMethod]
     [ArgDescription("Transpiles an IL source file to Hack")]
     [ArgIgnoreCase]
-    public void Transpile(ReadWriteArgs args)
+    public void IL(ReadWriteArgs args)
     {
         var source = File.ReadAllText(args.Path);
         var input = new AntlrInputStream(source);
@@ -138,68 +144,6 @@ public class HackProgram
         parser.AddParseListener(listener);
         parser.function();
         File.WriteAllText(args.Out, listener.Transpiled);
-    }
-
-    [ArgActionMethod]
-    [ArgDescription("Test a Hack assembly file.")]
-    [ArgIgnoreCase]
-    public void Test2(PathArgs args)
-    {
-        var source = File.ReadAllText(args.Path);
-
-        var ram = new RAM32K();
-        var rom = new ROM32K(Assembler.Assemble(source));
-
-        const int SP = 256;
-        const int LCL = 2048;
-        const int ARG = LCL + 256;
-
-        ram[0] = SP;
-        ram[1] = LCL;
-        ram[2] = ARG;
-
-        // The amount of time we want this program to
-        // run using the same ram. This means that results
-        // in memory will accumulate over time as the
-        // program will overwrite and add data each run it
-        // is executed. Nothing is reset.
-        const int runs = (1 << 0);
-
-        var start = DateTime.Now;
-        for (var i = 0; i < runs; i++)
-        {
-            var sim = new Simulator(rom, ram);
-            sim.Run();
-        }
-
-        var finish = DateTime.Now;
-        var duration = (finish - start);
-        var seconds = Math.Round(duration.TotalSeconds, 2);
-        var avg = Math.Round(duration.TotalMilliseconds / runs, 2);
-
-        Console.WriteLine($"{runs} runs in {seconds}s (avg. {avg}ms/run)");
-
-        for (var i = 0; i < 16; i++)
-        {
-            ram.Address = (short)i;
-            Console.WriteLine($"{i}: {ram.Out}");
-        }
-
-        Console.WriteLine("...");
-
-        for (var i = SP; i < SP + 8; i++)
-        {
-            ram.Address = (short)i;
-            Console.WriteLine($"{i}: {ram.Out}");
-        }
-
-        Console.WriteLine("...");
-
-        for (var i = ARG; i < ARG + 8; i++)
-        {
-            ram.Address = (short)i;
-            Console.WriteLine($"{i}: {ram.Out}");
-        }
     }
 }
 
