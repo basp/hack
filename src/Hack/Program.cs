@@ -83,7 +83,7 @@ public class HackProgram
         {
             // Ensure to reset ram before each run otherwise
             // the memory will be clobbered all over due to
-            // the ever increasing stack pointer.
+            // the stack pointer behavior.
             ram = new RAM32K()
             {
                 [0] = SP,
