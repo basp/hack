@@ -1,7 +1,5 @@
 namespace Hack;
 
-using System.Text;
-
 public static class Decompiler
 {
     public static string Decompile(Instruction i) =>

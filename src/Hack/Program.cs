@@ -51,10 +51,13 @@ public class HackProgram
         {
             if (!string.IsNullOrEmpty(args.Out))
             {
+                // If output is specified then write
+                // toi that path
                 File.WriteAllLines(args.Out, code);
             }
             else
             {
+                // Otherwise we just write to console
                 foreach (var cmd in code)
                 {
                     Console.WriteLine(cmd);
