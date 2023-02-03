@@ -131,7 +131,7 @@ public class HackProgram
         var lexer = new ILLexer(input);
         var tokens = new CommonTokenStream(lexer);
         var parser = new ILParser(tokens);
-        var listener = new TestListener();
+        var listener = new Transpiler();
         parser.AddParseListener(listener);
         parser.function();
         File.WriteAllText(args.Out, listener.Transpiled);
