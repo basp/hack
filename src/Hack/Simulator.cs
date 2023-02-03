@@ -53,17 +53,11 @@ public class Simulator
     {
         this.Program.Address = this.CPU.PC;
         this.CPU.Instruction = this.Program.Out;
-        // this.Data.Address = this.CPU.AddressM;
-        // this.CPU.InM = this.Data.Out;
         this.CPU.Tick();
     }
 
     public void Tock()
     {
-        // this.Data.Load = this.CPU.WriteM;
-        // this.Data.Address = this.CPU.AddressM;
-        // this.Data.In = this.CPU.OutM;
-        // this.Data.Cycle();
         this.CPU.Tock();
     }
 }
