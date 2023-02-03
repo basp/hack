@@ -52,7 +52,7 @@ public class HackProgram
             if (!string.IsNullOrEmpty(args.Out))
             {
                 // If output is specified then write
-                // toi that path
+                // to that path
                 File.WriteAllLines(args.Out, code);
             }
             else
