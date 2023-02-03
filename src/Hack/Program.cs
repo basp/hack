@@ -20,6 +20,13 @@ public class ReadWriteArgs : ReadArgs
     public string Out { get; set; } = string.Empty;
 }
 
+public class ReadWriteOptionalArgs : ReadArgs
+{
+    [ArgDescription("The optional path to the output")]
+    [ArgShortcut("-o")]
+    public string Out { get; set; } = string.Empty;
+}
+
 public class ReadExecuteArgs : ReadArgs
 {
     [ArgDefaultValue(1)]
@@ -37,6 +44,30 @@ public class HackProgram
     public bool Help { get; set; }
 
     [ArgActionMethod]
+    [ArgDescription("Disassembles a Hack binary")]
+    public void Dasm(ReadWriteOptionalArgs args)
+    {
+        void Write(string[] code)
+        {
+            if (!string.IsNullOrEmpty(args.Out))
+            {
+                File.WriteAllLines(args.Out, code);
+            }
+            else
+            {
+                foreach (var cmd in code)
+                {
+                    Console.WriteLine(cmd);
+                }
+            }
+        }
+
+        var prog = ReadBinary(args.Path);
+        var code = Disassembler.Disassemble(prog);
+        Write(code);
+    }
+
+    [ArgActionMethod]
     [ArgDescription("Runs a Hack binary")]
     public void Bin(ReadExecuteArgs args)
     {
@@ -44,17 +75,7 @@ public class HackProgram
         const int LCL = 2048;
         const int ARG = LCL + 256;
 
-        var instructions = new List<short>();
-        using (var stream = File.OpenRead(args.Path))
-        using (var reader = new BinaryReader(stream))
-        {
-            while (stream.Position < stream.Length)
-            {
-                instructions.Add(reader.ReadInt16());
-            }
-        }
-
-        var rom = new ROM32K(instructions.ToArray());
+        var rom = new ROM32K(ReadBinary(args.Path));
         var ram = new RAM32K();
 
         var start = DateTime.Now;
@@ -135,6 +156,21 @@ public class HackProgram
         parser.AddParseListener(listener);
         parser.function();
         File.WriteAllText(args.Out, listener.Transpiled);
+    }
+
+    private short[] ReadBinary(string path)
+    {
+        var instructions = new List<short>();
+        using (var stream = File.OpenRead(path))
+        using (var reader = new BinaryReader(stream))
+        {
+            while (stream.Position < stream.Length)
+            {
+                instructions.Add(reader.ReadInt16());
+            }
+        }
+
+        return instructions.ToArray();
     }
 }
 

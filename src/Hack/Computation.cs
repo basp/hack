@@ -12,7 +12,7 @@ public enum Computation
     MinusData = 0b0_001111,
     MinusAddress = 0b0_110011,
     DataPlusOne = 0b0_011111,
-    AddressPlusOne = 0b0_110010,
+    AddressPlusOne = 0b0_110111,
     DataMinusOne = 0b0_001110,
     AddressMinusOne = 0b0_110010,
     DataPlusAddress = 0b0_000010,
