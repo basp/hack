@@ -32,7 +32,7 @@ public class CompilerTests
                     Computation.AddressPlusOne,
                     Destination.MD,
                     Jump.LE),
-                Expected = 0b111_0_110010_011_110,
+                Expected = 0b111_0_110111_011_110,
             },
             new
             {
