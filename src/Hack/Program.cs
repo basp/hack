@@ -4,14 +4,6 @@ using PowerArgs;
 
 using Args = PowerArgs.Args;
 
-public class PathArgs
-{
-    [ArgRequired]
-    [ArgDescription("The path to the source file")]
-    [ArgPosition(1)]
-    public string Path { get; set; } = string.Empty;
-}
-
 public class ReadArgs
 {
     [ArgRequired]
@@ -61,7 +53,6 @@ public class HackProgram
                 instructions.Add(reader.ReadInt16());
             }
         }
-
 
         var rom = new ROM32K(instructions.ToArray());
         var ram = new RAM32K();
