@@ -27,7 +27,7 @@ public class Simulator
             // If the computation is zero (0) and the jump destination is the 
             // previous instruction or the current instruction and we know that 
             // this is an unconditional jump then we also know that we are in a 
-            // tight infinite loop that calculates nothing.
+            // tight infinite loop that *calculates nothing*.
             // At this point it is pretty safe to signal the halted flag.
             (
                 this.CPU.PC == (this.Program.Address - 1) || 

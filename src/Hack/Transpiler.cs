@@ -108,10 +108,25 @@ class Transpiler : ILBaseListener
         this.PushSegmentIndex(@that, index);
     }
 
-    public override void ExitPopThat([NotNull] ILParser.PopThatContext context)
+    public override void ExitPopThat(
+        [NotNull] ILParser.PopThatContext context)
     {
         var index = int.Parse(context.UINT().GetText());
         this.PopSegmentIndex(@that, index);
+    }
+
+    public override void ExitPushPointer(
+        [NotNull] ILParser.PushPointerContext context)
+    {
+        var index = int.Parse(context.UINT().GetText());
+        this.PushSegmentIndex(@pointer, index);
+    }
+
+    public override void ExitPopPointer(
+        [NotNull] ILParser.PopPointerContext context)
+    {
+        var index = int.Parse(context.UINT().GetText());
+        this.PopSegmentIndex(@pointer, index);
     }
 
     public override void ExitAdd([NotNull] ILParser.AddContext context)
