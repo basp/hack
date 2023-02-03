@@ -17,7 +17,6 @@ command     :   'push' 'local' UINT             # pushLocal
             |   'pop' 'that' UINT               # popThat
             |   'pop' 'pointer' UINT            # popPointer
             |   'pop' 'temp' UINT               # popTemp
-            |   'pop' 'constant' UINT           # popConstant
             |   'pop' 'static' UINT             # popStatic
             |   'add'                           # add
             |   'sub'                           # sub

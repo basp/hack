@@ -15,7 +15,19 @@ public class CPU
             [(short)Jump.Always] = cpu => true,
         };
 
+    private readonly RAM32K ram;
+
     private bool writeM;
+
+    public CPU()
+        : this(new RAM32K())
+    {
+    }
+
+    public CPU(RAM32K ram)
+    {
+        this.ram = ram;
+    }
 
     public Register A { get; } = new Register();
 
@@ -58,6 +70,9 @@ public class CPU
 
     public void Tick()
     {
+        this.ram.Address = this.AddressM;
+        this.InM = this.ram.Out;
+
         if (this.Instruction.IsComputation)
         {
             this.ALU.Op = (byte)this.Instruction.Comp;
@@ -76,6 +91,8 @@ public class CPU
         }
         else
         {
+            this.writeM = false;
+            this.D.Load = false;
             this.A.Load = true;
             this.A.In = this.Instruction.Address;
             this.PC += 1;
@@ -87,6 +104,13 @@ public class CPU
 
     public void Tock()
     {
+        // Moved to here from the simulator to ensure
+        // the ram is cycled before the addressing register
+        this.ram.Load = this.WriteM;
+        this.ram.Address = this.AddressM;
+        this.ram.In = this.OutM;
+        this.ram.Cycle();
+
         this.A.Tock();
         this.D.Tock();
     }

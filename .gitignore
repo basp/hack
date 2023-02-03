@@ -8,6 +8,10 @@
 out/
 *.java
 
+# Hack generated files
+/src/Hack/*.bin
+/src/Hack/*.hack
+
 # User-specific files
 *.rsuser
 *.suo

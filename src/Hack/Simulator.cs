@@ -6,7 +6,7 @@ public class Simulator
 
     public RAM32K Data { get; }
 
-    private CPU CPU { get; } = new CPU();
+    private CPU CPU { get; }
 
     public Simulator(ROM32K program)
         : this(program, new RAM32K())
@@ -17,6 +17,7 @@ public class Simulator
     {
         this.Program = program;
         this.Data = data;
+        this.CPU = new CPU(data);
     }
 
     public bool IsHalted =>
@@ -54,17 +55,17 @@ public class Simulator
     {
         this.Program.Address = this.CPU.PC;
         this.CPU.Instruction = this.Program.Out;
-        this.Data.Address = this.CPU.AddressM;
-        this.CPU.InM = this.Data.Out;
+        // this.Data.Address = this.CPU.AddressM;
+        // this.CPU.InM = this.Data.Out;
         this.CPU.Tick();
     }
 
     public void Tock()
     {
-        this.Data.Load = this.CPU.WriteM;
-        this.Data.Address = this.CPU.AddressM;
-        this.Data.In = this.CPU.OutM;
-        this.Data.Cycle();
+        // this.Data.Load = this.CPU.WriteM;
+        // this.Data.Address = this.CPU.AddressM;
+        // this.Data.In = this.CPU.OutM;
+        // this.Data.Cycle();
         this.CPU.Tock();
     }
 }

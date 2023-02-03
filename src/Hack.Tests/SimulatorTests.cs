@@ -1,11 +1,27 @@
 namespace Hack.Tests;
 
 using System;
+using System.IO;
 using Hack;
 using Xunit;
 
 public class SimulatorTests
 {
+    // [Fact]
+    // public void TestDestinations()
+    // {
+    //     var source = File.ReadAllText(@"D:\basp\hack\src\Hack\Examples\Example6.hack");
+    //     var instructions = Assembler.Assemble(source);
+    //     var program = new ROM32K(instructions);
+    //     var data = new RAM32K()
+    //     {
+    //         [0] = 256,
+    //     };
+
+    //     var sim = new Simulator(program, data);
+    //     sim.Run();
+    // }
+
     [Fact]
     public void TestSimulator5()
     {
@@ -147,17 +163,17 @@ public class SimulatorTests
     public void TestCPU()
     {
         TestInstruction(
-            new CPU { InM = 130 },
+            new CPU(new RAM32K(130)),
             Compiler.Compile(Computation.Memory, Destination.D),
             cpu => Assert.Equal(130, cpu.D.Out));
 
         TestInstruction(
-            new CPU { InM = 130 },
+            new CPU(new RAM32K(130)),
             Compiler.Compile(Computation.Memory, Destination.A),
             cpu => Assert.Equal(130, cpu.A.Out));
 
         TestInstruction(
-            new CPU { InM = 130 },
+            new CPU(new RAM32K(130)),
             Compiler.Compile(Computation.Memory, Destination.AD),
             cpu =>
             {
@@ -167,7 +183,7 @@ public class SimulatorTests
             });
 
         TestInstruction(
-            new CPU { InM = 130 },
+            new CPU(new RAM32K(130)),
             Compiler.Compile(Computation.Memory, Destination.AMD),
             cpu =>
             {
