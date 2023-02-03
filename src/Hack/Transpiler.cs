@@ -10,6 +10,15 @@ class Transpiler : ILBaseListener
     private const string @that = "that";
     private const string @pointer = "pointer";
     private const string @temp = "temp";
+    private const string @add = "add";
+    private const string @sub = "sub";
+    private const string @neg = "neg";
+    private const string @and = "and";
+    private const string @or = "or";
+    private const string @not = "not";
+    private const string @eq = "eq";
+    private const string @gt = "gt";
+    private const string @lt = "lt";
 
     private static readonly IDictionary<string, string> segments =
         new Dictionary<string, string>
@@ -129,49 +138,61 @@ class Transpiler : ILBaseListener
         this.PopSegmentIndex(@pointer, index);
     }
 
+    public override void ExitPushTemp([NotNull] ILParser.PushTempContext context)
+    {
+        var index = int.Parse(context.UINT().GetText());
+        this.PushSegmentIndex(@temp, index);
+    }
+
+    public override void ExitPopTemp([NotNull] ILParser.PopTempContext context)
+    {
+        var index = int.Parse(context.UINT().GetText());
+        this.PopSegmentIndex(@temp, index);
+    }
+
     public override void ExitAdd([NotNull] ILParser.AddContext context)
     {
-        TranspileBinaryOp("add", "D=D+M");
+        TranspileBinaryOp(@add, "D=D+M");
     }
 
     public override void ExitSub([NotNull] ILParser.SubContext context)
     {
-        TranspileBinaryOp("sub", "D=M-D");
+        TranspileBinaryOp(@sub, "D=M-D");
     }
 
     public override void ExitAnd([NotNull] ILParser.AndContext context)
     {
-        TranspileBinaryOp("and", "D=D&M");
+        TranspileBinaryOp(@and, "D=D&M");
     }
 
     public override void ExitOr([NotNull] ILParser.OrContext context)
     {
-        TranspileBinaryOp("or", "D=D|M");
+        TranspileBinaryOp(@or, "D=D|M");
     }
 
     public override void ExitNeg([NotNull] ILParser.NegContext context)
     {
-        TranspileUnaryOp("neg", "M=M-1");
+        TranspileUnaryOp(@neg, "M=M-1");
     }
 
     public override void ExitNot([NotNull] ILParser.NotContext context)
     {
-        TranspileUnaryOp("not", "M=!M");
+        TranspileUnaryOp(@not, "M=!M");
     }
 
     public override void ExitEq([NotNull] ILParser.EqContext context)
     {
-        TranspileLogicalOp("eq", "JEQ");
+        TranspileLogicalOp(@eq, "JEQ");
     }
 
     public override void ExitGt([NotNull] ILParser.GtContext context)
     {
-        TranspileLogicalOp("gt", "JGT");
+        TranspileLogicalOp(@gt, "JGT");
     }
 
     public override void ExitLt([NotNull] ILParser.LtContext context)
     {
-        TranspileLogicalOp("lt", "JLT");
+        TranspileLogicalOp(@lt, "JLT");
     }
 
     private void TranspileLogicalOp(string name, string jump)
