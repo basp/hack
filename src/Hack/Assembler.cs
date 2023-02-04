@@ -136,7 +136,7 @@ public class Assembler
                 return value;
             }
 
-            if (this.builtin.TryGetValue(symbol, out value))
+            if (this.builtin.TryGetValue(symbol.ToUpper(), out value))
             {
                 return value;
             }

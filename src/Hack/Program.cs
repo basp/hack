@@ -75,25 +75,14 @@ public class HackProgram
     public void Bin(ReadExecuteArgs args)
     {
         const int SP = 256;
-        const int LCL = 2048;
-        const int ARG = LCL + 256;
-
+     
         var rom = new ROM32K(ReadBinary(args.Path));
         var ram = new RAM32K();
 
         var start = DateTime.Now;
         for (var i = 0; i < args.Runs; i++)
         {
-            // Ensure to reset ram before each run otherwise
-            // the memory will be clobbered all over due to
-            // the stack pointer behavior.
-            ram = new RAM32K()
-            {
-                [0] = SP,
-                [1] = LCL,
-                [2] = ARG,
-            };
-
+            ram[0] = 0; // set SP = 0
             var sim = new Simulator(rom, ram);
             sim.Run();
         }
@@ -111,20 +100,14 @@ public class HackProgram
             Console.WriteLine($"{i}: {ram.Out}");
         }
 
-        Console.WriteLine("...");
+        Console.WriteLine("...");   
 
+        var sp = ram[0];
         for (var i = SP; i < SP + 8; i++)
         {
+            var pointer = i == sp ? " <- SP" : string.Empty;
             ram.Address = (short)i;
-            Console.WriteLine($"{i}: {ram.Out}");
-        }
-
-        Console.WriteLine("...");
-
-        for (var i = ARG; i < ARG + 8; i++)
-        {
-            ram.Address = (short)i;
-            Console.WriteLine($"{i}: {ram.Out}");
+            Console.WriteLine($"{i}: {ram.Out}{pointer}");
         }
     }
 
@@ -148,17 +131,29 @@ public class HackProgram
     [ArgActionMethod]
     [ArgDescription("Transpiles an IL source file to Hack")]
     [ArgIgnoreCase]
-    public void IL(ReadWriteArgs args)
+    public void IL(ReadWriteOptionalArgs args)
     {
+        void Write(string output)
+        {
+            if(string.IsNullOrWhiteSpace(args.Out))
+            {
+                Console.WriteLine(output);
+            }
+            else
+            {
+                File.WriteAllText(args.Out, output);
+            }
+        }
+
         var source = File.ReadAllText(args.Path);
         var input = new AntlrInputStream(source);
         var lexer = new ILLexer(input);
         var tokens = new CommonTokenStream(lexer);
         var parser = new ILParser(tokens);
-        var listener = new Transpiler();
+        var listener = new Transpiler(args.Path);
         parser.AddParseListener(listener);
-        parser.function();
-        File.WriteAllText(args.Out, listener.Transpiled);
+        parser.program();
+        Write(listener.Transpiled);
     }
 
     private short[] ReadBinary(string path)

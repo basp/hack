@@ -30,15 +30,87 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.11.1")]
 public interface IILListener : IParseTreeListener {
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="ILParser.function"/>.
+	/// Enter a parse tree produced by <see cref="ILParser.program"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterProgram([NotNull] ILParser.ProgramContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="ILParser.program"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitProgram([NotNull] ILParser.ProgramContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>call</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCall([NotNull] ILParser.CallContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>call</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCall([NotNull] ILParser.CallContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>function</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterFunction([NotNull] ILParser.FunctionContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="ILParser.function"/>.
+	/// Exit a parse tree produced by the <c>function</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction([NotNull] ILParser.FunctionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>return</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterReturn([NotNull] ILParser.ReturnContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>return</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitReturn([NotNull] ILParser.ReturnContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ifGoto</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIfGoto([NotNull] ILParser.IfGotoContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ifGoto</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIfGoto([NotNull] ILParser.IfGotoContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>goto</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGoto([NotNull] ILParser.GotoContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>goto</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGoto([NotNull] ILParser.GotoContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>label</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLabel([NotNull] ILParser.LabelContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>label</c>
+	/// labeled alternative in <see cref="ILParser.command"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLabel([NotNull] ILParser.LabelContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>pushLocal</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.
@@ -207,18 +279,6 @@ public interface IILListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPopTemp([NotNull] ILParser.PopTempContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>popConstant</c>
-	/// labeled alternative in <see cref="ILParser.command"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterPopConstant([NotNull] ILParser.PopConstantContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>popConstant</c>
-	/// labeled alternative in <see cref="ILParser.command"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitPopConstant([NotNull] ILParser.PopConstantContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>popStatic</c>
 	/// labeled alternative in <see cref="ILParser.command"/>.

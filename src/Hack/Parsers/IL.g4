@@ -1,9 +1,14 @@
 grammar IL;
 
-function    :   command+
-            ;
+program     :   command+ ;
 
-command     :   'push' 'local' UINT             # pushLocal
+command     :   'call' NAME UINT                # call
+            |   'function' NAME UINT            # function
+            |   'return'                        # return
+            |   'if-goto' NAME                  # ifGoto
+            |   'goto' NAME                     # goto   
+            |   'label' NAME                    # label
+            |   'push' 'local' UINT             # pushLocal
             |   'push' 'argument' UINT          # pushArgument
             |   'push' 'this' UINT              # pushThis
             |   'push' 'that' UINT              # pushThat
@@ -29,8 +34,7 @@ command     :   'push' 'local' UINT             # pushLocal
             |   'not'                           # not
             ;
 
-UINT        :   [0-9]+
-            ;
-            
+UINT        :   [0-9]+ ;
+NAME        :   [a-zA-Z_$.:][a-zA-Z0-9_$.:]* ;
 COMMENT     :   '//' .*? '\n' -> skip ;
 WS          :   [ \t\r\n] -> skip ;            

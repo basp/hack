@@ -1,9 +1,19 @@
-push constant 1
-push constant 2
-push constant 3
-pop argument 0
-pop argument 1
-pop argument 2
-push argument 2
-push argument 1
-push argument 0
+function test 0
+    // if (2 > 3) 123 else 456
+    push constant 3
+    push constant 2
+    gt
+    not
+    if-goto else
+    push constant 123
+    goto done
+label else
+    push constant 456
+label done
+    return
+
+function foo 0
+    push constant 3
+    pop static 0
+label done
+    return
