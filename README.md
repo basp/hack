@@ -16,6 +16,9 @@ Below is a simple Hack assembly program that computes 2 + 3.
     D=D+A
     @result
     M=D
+(end)
+    @end
+    0;JMP       // defacto halt
 ```
 
 Of course Hack assembly features loops, registers and conditionals as well:
@@ -31,8 +34,8 @@ Of course Hack assembly features loops, registers and conditionals as well:
     @eq
     0;JMP
 (eq)
-    @eq     // defacto end
-    0;JMP
+    @eq
+    0;JMP       // defacto halt
 
 ```
 
