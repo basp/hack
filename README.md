@@ -7,6 +7,9 @@ Since I wasn't in the mood to run too much Java the computer was built from scra
 
 The IL features function calls and returns and proper stack management. This will compile to Hack assembly which can be executed using the Hack computer simulator which is provided.
 
+## The killer app
+The main use case for this thing is to provide a computer *that can be instantiated* at will. The idea is to connect this to a persistent data store and the provide computing at will via an network(ed) API and a custom (high level) programming language.
+
 ## Example Hack assembly
 Below is a simple Hack assembly program that computes 2 + 3.
 ```
@@ -77,6 +80,28 @@ function Example.bar 0
 The code above calculates `15` and leaves this value on top of the stack at `M[256]` and `SP` will point to the next address (`257`).
 
 The generated Hack assembly code (from example #3) is listed as a reference in the appendix.
+
+## Using the tool
+The Hack assembly is a **dotnet** program that can be executed to perform various tasks.
+
+### Compile Hack assembly to binary
+Hack assembly code can be directly converted to a binary that can be executed using the simulator that is included (see executing binaries example).
+```
+> dotnet run asm .\input.hack -o .\out.bin
+```
+
+The output (`-o`) argument for the `asm` command is mandatory since it is more or less impossible to display the binary output without using a HEX editor.
+
+### Transpile IL to Hack assembly
+The tool can also be used as a transpiler from IL to Hack assembly.
+```
+> dotnet run il .\input.vm -o .\out.hack
+```
+
+In this case the output (`-o`) argument for the `il` command is optional. If it is not supplied the transpiled output will be print to the standard output instead.
+
+### Run a Hack binary
+Since Hack is a virtual computing platform we also need a virtual computer to run the instructions. The distribution includes an efficient Hack computer that can execute the a combination of ROM (with instructions) and RAM (with data) in a reasonably efficient manner.
 
 ## Appendix: Generated assembly
 The IL from example (#3) will generate the following Hack assembly:
