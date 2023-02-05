@@ -195,14 +195,21 @@ R15  : 0
 271: 2048
 ```
 
-### Summary
+### Disassembly a binary
+You can disassembly a previously compiled Hack binary into its equivalent assembly instructions. 
+
+Note that during the compilation process all symbolic information is essentially lost so when decompiling you will get back only raw addresses for `@` instructions.
+
+Nevertheless, it can be useful to feed this output back into the assembler to make sure the resulting binary is equivalent to the original.
+
+## Summary
 The Hack toolchain currently allows you to go from `IL -> Hack -> Binary`. But using the `dasm` command you can also go from `Binary -> Hack` although you **will** lose all symbolic information.
 
 This feature is generally useful though to double check either the Hack distribution or your own interpretation of it. 
 
 For more information regarding the transpilation between IL and assembly see the appendix which has a complete transpiled example of the example code from example #3.
 
-### Tricks
+## Tricks
 A common tactic of debugging is to transform your *IL* into binary via `IL -> asm -> bin` using the tool. And then feed back the generated binary into the **decompiler** in order to generate super raw Hack assembly code (`bin -> asm`). If you then *assemble* this disassembled assembly code (`asm -> bin`) you should get the exact same binary as you got compiling the IL in the first place.
 
 In pseudocode:
