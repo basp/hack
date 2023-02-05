@@ -67,4 +67,6 @@ function Example.bar 0
     add
     return
 ```
+
+The code above calculates `15` and leaves this value on top of the stack at `M[256]` and `SP` will point to the next address (`257`).
 ## 
