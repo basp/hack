@@ -12,6 +12,10 @@ The main use case for this thing is to provide a computer *that can be instantia
 
 This computer will then be used to perform various sequences of instructions that are stored in a database that is made available by the server context in which these programs will run. By running in a well defined context and having a well defined specification of operations it's possible to limit the programs an more importantly - guard against - the possibility that they will monopolize the server and therefor hamper accessibility for other users (what is commonly known as a DOS or DDOS attack).
 
+The most important fact of this shenanigans is that the database which stores the commands is accessible to the user. They can program their own commands and in essence create their own world. The trick here is to make sure that they cannot screw up eachothers work so easily unless there's a real gameplay reason for it.
+
+This requires a lot of security and network infrastructure and we are in no way close but we'll keep these goals in mind as we push forward.
+
 ## Example Hack assembly
 Below is a simple Hack assembly program that computes 2 + 3.
 ```
