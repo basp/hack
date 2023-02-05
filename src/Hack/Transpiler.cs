@@ -294,6 +294,7 @@ class Transpiler : ILBaseListener
 
     private void WriteReturn()
     {
+        this.WriteIndented("// Prepare return jump");
         this.WriteIndented("// Store the top of the frame (FRAME) in temp register");
         this.WriteIndented("@LCL");
         this.WriteIndented("D=M");
@@ -559,9 +560,6 @@ class Transpiler : ILBaseListener
 
     private void Write(string command) =>
         this.builder.AppendLine(command);
-
-    private string GetQualifiedFunctionName(string f) =>
-        string.Concat(Path.GetFileNameWithoutExtension(this.path), ".", f);
 
     private string GenerateSymbol(string key)
     {
