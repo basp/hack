@@ -82,7 +82,7 @@ The code above calculates `15` and leaves this value on top of the stack at `M[2
 The generated Hack assembly code (from example #3) is listed as a reference in the appendix.
 
 ## Using the tool
-The Hack assembly is a **dotnet** program that can be executed to perform various tasks.
+The **Hack** assembly is a **dotnet** program that can be executed to perform various tasks.
 
 ### Compile Hack assembly to binary
 Hack assembly code can be directly converted to a binary that can be executed using the simulator that is included (see executing binaries example).
