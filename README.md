@@ -100,12 +100,6 @@ The tool can also be used as a transpiler from IL to Hack assembly.
 
 In this case the output (`-o`) argument for the `il` command is optional. If it is not supplied the transpiled output will be print to the standard output instead.
 
-### Assemble Hack into a binary
-Once you have a Hack assembly file you can *assemble* this into a binary using the same tool. For example. the command below will translate the Hack assembly output from the `il` command before into a binary executable that can be executed on the Hack simulator.
-```
-> dotnet run asm .\out.hack -o .\out.bin
-```
-
 ### Run a Hack binary
 Once you have assembled a Hack binary file you can run this with:
 ```
