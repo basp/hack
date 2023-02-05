@@ -146,13 +146,18 @@ The tool can also be used as a transpiler from IL to Hack assembly.
 > dotnet run il .\input.vm -o .\out.hack
 ```
 
+This will transpile a file a file written in intermediate code to Hack assembly code.
+
 In this case the output (`-o`) argument for the `il` command is optional. If it is not supplied the transpiled output will be print to the standard output instead. This is useful is you just want some quick (development) output on your console instead of storing it into a file.
+
+All commands that translate to a form that can be converted to a reasonable string encoding will peform in the same way.
 
 ### Run a Hack binary
 Once you have assembled a Hack binary file you can run this with:
 ```
 > dotnet run bin .\out.bin
 ```
+
 This will run the `.\out.bin` file that was assembled by using the `asm` command on `.\out.hack` earlier.
 
 When properly halted, it will also output some information about execution time, the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers indicated (unless `ARG`, `LCL` or both coincide with `SP`, in that case only the `SP` pointer will be marked).
