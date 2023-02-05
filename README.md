@@ -197,6 +197,35 @@ R15  : 0
 
 ### Disassembly a binary
 You can disassembly a previously compiled Hack binary into its equivalent assembly instructions. 
+```
+> dotnet run dasm .\out.bin
+```
+
+Which should output something very simular to:
+```
+@256
+D=A
+@0
+M=D
+@1
+M=D
+@2
+M=D
+@2048
+D=A
+@3
+M=D
+@4
+M=D
+@63
+D=A
+@0
+A=M
+M=D
+@0
+M=M+1
+...
+```
 
 Note that during the compilation process all symbolic information is essentially lost so when decompiling you will get back only raw addresses for `@` instructions.
 
