@@ -141,7 +141,12 @@ R15  : 0
 ### Summary
 The Hack toolchain currently allows you to go from `IL -> Hack -> Binary`. But using the `dasm` command you can also go from `Binary -> Hack` although you **will** lose all symbolic information.
 
-For more information regarding the transpilation between IL and assembly seen the appendix which has a complete transpiled example of the example code from example #3.
+This feature is generally useful though to double check either the Hack distribution or your own interpretation of it. 
+
+For more information regarding the transpilation between IL and assembly see the appendix which has a complete transpiled example of the example code from example #3.
+
+### Tricks
+A common tactic of debugging is to transform your *IL* into binary via `IL -> asm -> bin` using the tool. And then feed back the generated binary into the **decompiler** in order to generate super raw Hack assembly code. If you then *assemble* this disassembled assembly code you should get the exact same binary as you got compiling the IL in the first place. This is a great way to make sure that all systems are aligned and doing the same thing (even if that is not the right thing).
 
 ## Appendix: Generated assembly
 The IL from example (#3) will generate the following Hack assembly:
