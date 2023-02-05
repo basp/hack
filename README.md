@@ -200,7 +200,7 @@ You can disassembly a previously compiled Hack binary into its equivalent assemb
 
 Note that during the compilation process all symbolic information is essentially lost so when decompiling you will get back only raw addresses for `@` instructions.
 
-Nevertheless, it can be useful to feed this output back into the assembler to make sure the resulting binary is equivalent to the original.
+Nevertheless, it can be useful to feed this output back into the assembler to make sure the resulting binary is equivalent to the original (the one that was presumably transpiled from IL).
 
 ## Summary
 The Hack toolchain currently allows you to go from `IL -> Hack -> Binary`. But using the `dasm` command you can also go from `Binary -> Hack` although you **will** lose all symbolic information.
