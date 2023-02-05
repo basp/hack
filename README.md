@@ -107,7 +107,36 @@ Once you have assembled a Hack binary file you can run this with:
 ```
 This will run the `.\out.bin` file that was assembled by using the `asm` command on `.\out.hack` earlier.
 
-Additionally it will also output the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers.
+Additionally it will also output some information about execution time, the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers indicated.
+
+```
+1 runs in 0,01s (avg. 7,38ms/run)
+SP   : 257
+LCL  : 256
+ARG  : 256
+THIS : 2048
+R8   : 0
+R9   : 0
+R10  : 0
+R12  : 0
+R13  : 261
+R14  : 63
+R15  : 0
+...
+256: 15 <- LCL
+257: 256 <- SP
+258: 256
+259: 2048
+262: 261
+263: 256
+265: 2048
+266: 15
+267: 5
+268: 227
+269: 266
+270: 261
+271: 2048
+```
 
 ### Summary
 The Hack toolchain currently allows you to go from `IL -> Hack -> Binary`. But using the `dasm` command you can also go from `Binary -> Hack` although you **will** lose all symbolic information.
