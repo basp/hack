@@ -8,7 +8,7 @@ Since I wasn't in the mood to run too much Java the computer was built from scra
 The IL features function calls and returns and proper stack management. This will compile to Hack assembly which can be executed using the Hack computer simulator which is provided.
 
 ## The killer app
-The main use case for this thing is to provide a computer *that can be instantiated* at will at runtime by code if ncecessary. In other words, it is a computer that can be instanted by a host programming language as part of its normal operating routine.
+The main use case for this thing is to provide a computer *that can be instantiated* at will at runtime by code if necessary. In other words, it is a computer that can be instanted by a host programming language as part of its normal operating routine. This computer can then be used to perform all kinds of dynamic operations that would otherwise be non-trivial to program in the host operating language.
 
 This computer will then be used to perform various sequences of instructions that are stored in a database that is made available by the server context in which these programs will run. By running in a well defined context and having a well defined specification of operations it's possible to limit the programs an more importantly - guard against - the possibility that they will monopolize the server and therefor hamper accessibility for other users (what is commonly known as a DOS or DDOS attack).
 
