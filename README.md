@@ -107,7 +107,7 @@ Once you have assembled a Hack binary file you can run this with:
 ```
 This will run the `.\out.bin` file that was assembled by using the `asm` command on `.\out.hack` earlier.
 
-Additionally it will also output some information about execution time, the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers indicated.
+When properly halted, it will also output some information about execution time, the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers indicated.
 
 ```
 1 runs in 0,01s (avg. 7,38ms/run)
