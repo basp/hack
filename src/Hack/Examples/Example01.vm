@@ -1,15 +1,15 @@
 function Sys.init 1
-    call Example4.bar 0
+    call Example01.bar 0
     return
 
-function Example4.bar 0
+function Example01.bar 0
     push constant 2
     push constant 2
-    call Example4.foo 2
+    call Example01.foo 2
     return
 
 // if x == y then 123 else 456
-function Example4.foo 0
+function Example01.foo 0
     push argument 0
     push argument 1
     eq

@@ -1,0 +1,7 @@
+function Sys.init 0
+    call Example02.foo 0
+    return
+
+function Example02.foo 0
+    push constant 0
+    return
