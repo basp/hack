@@ -91,6 +91,9 @@ public class CPU
         }
         else
         {
+            // This is an A-instruction so make sure
+            // we don't accidentaly clobber memory by
+            // loading something.
             this.writeM = false;
             this.D.Load = false;
             this.A.Load = true;
@@ -105,7 +108,7 @@ public class CPU
     public void Tock()
     {
         // Moved to here from the simulator to ensure
-        // the ram is cycled before the addressing register
+        // the ram is cycled before the addressing register.
         this.ram.Load = this.WriteM;
         this.ram.Address = this.AddressM;
         this.ram.In = this.OutM;
