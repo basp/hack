@@ -40,6 +40,7 @@ And although programming in Hack assembly is pretty pleasant once you get into i
 
 ```
 function Sys.init 0
+    call main 0
     return
 
 function main 0
