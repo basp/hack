@@ -1,0 +1,17 @@
+function Sys.init 1
+    call Example4.bar 0
+    return
+
+function Example4.bar 0
+    push constant 2
+    push constant 3
+    call Example4.foo 2
+    push constant 5
+    add
+    return
+
+function Example4.foo 0
+    push argument 0
+    push argument 1
+    add
+    return

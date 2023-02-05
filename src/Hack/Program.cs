@@ -74,15 +74,12 @@ public class HackProgram
     [ArgDescription("Runs a Hack binary")]
     public void Bin(ReadExecuteArgs args)
     {
-        const int SP = 256;
-     
         var rom = new ROM32K(ReadBinary(args.Path));
         var ram = new RAM32K();
 
         var start = DateTime.Now;
         for (var i = 0; i < args.Runs; i++)
         {
-            ram[0] = 0; // set SP = 0
             var sim = new Simulator(rom, ram);
             sim.Run();
         }
@@ -94,23 +91,53 @@ public class HackProgram
 
         Console.WriteLine($"{args.Runs} runs in {seconds}s (avg. {avg}ms/run)");
 
-        for (var i = 0; i < 16; i++)
+        var registers = new []
+        {
+            "SP   ",
+            "LCL  ",
+            "ARG  ",
+            "THIS ",
+            "THAT ",
+        };
+
+        for (var i = 0; i < registers.Length; i++)
         {
             ram.Address = (short)i;
-            Console.WriteLine($"{i}: {ram.Out}");
+            Console.WriteLine($"{registers[i]}: {ram.Out}");
+        }
+
+        for (var i = registers.Length; i < 16; i++)
+        {
+            var reg = $"R{i}".PadRight(5, ' ');
+            ram.Address = (short)i;
+            Console.WriteLine($"{reg}: {ram.Out}");
         }
 
         Console.WriteLine("...");   
 
         var sp = ram[0];
-        for (var i = SP; i < SP + 8; i++)
+        var lcl = ram[1];
+        var arg = ram[2];
+
+        for (var i = 256; i < 256 + 16; i++)
         {
-            var pointer = i == sp ? " <- SP" : string.Empty;
+            string pointer = string.Empty;
+            if (i == sp)
+            {
+                pointer = " <- SP";
+            }
+            else if (i == lcl)
+            {
+                pointer = " <- LCL";
+            }
+            else if (i == arg)
+            {
+                pointer = " <- ARG";
+            }
             ram.Address = (short)i;
             Console.WriteLine($"{i}: {ram.Out}{pointer}");
         }
     }
-
 
     [ArgActionMethod]
     [ArgDescription("Assembles a Hack file into a binary")]
