@@ -90,6 +90,48 @@ The generated Hack assembly code (from example #3) is listed as a reference in t
 ## Using the tool
 The **Hack** assembly is a **dotnet** program that can be executed to perform various tasks.
 
+The tool can be executed by navigating into the `.\src\Hack` directory where the main `Hack` project is located. And then executing:
+```
+> dotnet run
+```
+
+Which should give output comparable to:
+```
+No action was specified
+Usage - Hack <action> -options
+
+GlobalOption   Description
+Help (-?)      Shows this help
+
+Actions
+
+  Dasm <Path> -options - Disassembles a Hack binary
+
+    Option       Description
+    Out (-o)     The optional path to the output
+    Path* (-P)   The path to the source file
+
+  Bin <Path> -options - Runs a Hack binary
+
+    Option       Description
+    Runs (-x)    The number of times to execute [Default='1']
+    Path* (-P)   The path to the source file
+
+  Asm <Path> -options - Assembles a Hack file into a binary
+
+    Option       Description
+    Out* (-o)    The path to the output
+    Path* (-P)   The path to the source file
+
+  IL <Path> -options - Transpiles an IL source file to Hack
+
+    Option       Description
+    Out (-o)     The optional path to the output
+    Path* (-P)   The path to the source file
+```
+
+If you get this output then everything is setup correctly but you're not supplying the right arguments yet. Read on to find out more.
+
 ### Compile Hack assembly to binary
 Hack assembly code can be directly converted to a binary that can be executed using the simulator that is included (see executing binaries example).
 ```
