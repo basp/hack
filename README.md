@@ -85,7 +85,7 @@ function Example.bar 0
 
 The code above calculates `15` and leaves this value on top of the stack at `M[256]` and `SP` will point to the next address (`257`).
 
-The generated Hack assembly code (from example #3) is listed as a reference in the appendix.
+The generated Hack assembly code (from example #3) is listed as a reference in the appendix. Be warned though - there's a lot of code there and the whole listing is pretty long. Might be due to the fact that my assembly code generation is not optimal.
 
 ## Using the tool
 The **Hack** assembly is a **dotnet** program that can be executed to perform various tasks.
