@@ -36,17 +36,17 @@ Below is a simple Hack assembly program that computes `2 + 3`.
 And although programming in Hack assembly is pretty pleasant once you get into it, it does help to have a somewhat higher level of language. This is where we want to use IL which translates to Hack directly using the VM conventions described in the book.
 
 ```
-function init 0
+function init 0             // zero locals
     push constant 12
     push constant 12
     call Math.mult 2
     push constant 2
     push constant 3
-    call Math.mult 2
+    call Math.mult 2        // call Math.mult with two arguments
     add
     return
 
-function Example04.mult 2   // mult(x, y)
+function Example04.mult 2   // two locals (sum, j)
     push constant 0
     pop local 0             // sum = 0
     push argument 1
