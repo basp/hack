@@ -1,0 +1,4 @@
+function foo 0
+    goto end
+label end
+    return
