@@ -1,9 +1,28 @@
 function Sys.init 0
-    call Example04.test 0
+    push constant 100
+    push constant 123
+    call Example04.mult 2
     return
 
-function Example04.test 0
-    push constant 2
-    push constant 3
+function Example04.mult 2   // mult(x, y)
+    push constant 0
+    pop local 0             // sum = 0
+    push argument 1
+    pop local 1             // j = y
+label loop
+    push constant 0
+    push local 1
+    eq
+    if-goto end             // if j = 0 goto end
+    push local 0
+    push argument 0
     add
-    return
+    pop local 0             // sum = sum + x
+    push local 1
+    push constant 1
+    sub                     
+    pop local 1             // j = j - 1
+    goto loop
+label end
+    push local 0
+    return                  // return sum

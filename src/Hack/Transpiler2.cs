@@ -115,7 +115,7 @@ class Transpiler2 : ILBaseListener
         [NotNull] ILParser.LabelContext context)
     {
         var name = context.NAME().GetText();
-        this.builder.AppendLine($"{this.scope}.{name}");
+        this.builder.AppendLine($"({this.scope}.{name})");
     }
 
     public override void ExitPushConstant(

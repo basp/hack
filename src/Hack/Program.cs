@@ -223,7 +223,7 @@ public class HackProgram
         var lexer = new ILLexer(input);
         var tokens = new CommonTokenStream(lexer);
         var parser = new ILParser(tokens);
-        var listener = new Transpiler2(args.Path, @".\vm1.stg");
+        var listener = new Transpiler2(args.Path, @".\VM2.stg");
         parser.AddParseListener(listener);
         parser.program();
         Write(listener.Transpiled);
