@@ -236,6 +236,8 @@ M=M+1
 
 Note that during the compilation process all symbolic information is essentially lost so when decompiling you will get back only raw addresses for `@` instructions.
 
+> Yes, this makes the disassembled output very hard to follow.
+
 Nevertheless, it can be useful to feed this output back into the assembler to make sure the resulting binary is equivalent to the original (the one that was presumably transpiled from IL).
 
 ## Summary
