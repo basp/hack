@@ -3,9 +3,9 @@ Hacking on "The Elements of Computer Systems".
 
 This is a (partial) implementation of the computing platform described in the book mentioned above by Nisan and Schocken.
 
-Since I wasn't in the mood to run too much Java the computer was built from scratch using C#. It's not perfect. The code is a little bit iffy in some places but it works.
+Since I wasn't in the mood to run too much Java so the system was built from scratch using C#. It doesn't include any tooling to work with the HDL from the book (yet) so for now the computer parts are simulated directly in C# instead.
 
-The IL features function calls and returns and proper stack management. This will compile to Hack assembly which can be executed using the Hack computer simulator which is provided.
+The IL features function calls and returns and proper stack management. This will compile to Hack assembly which can be executed using the Hack computer simulator mentioned in the previous paragraph.
 
 ## Example Hack assembly
 Below is a simple Hack assembly program that computes 2 + 3.
@@ -55,10 +55,14 @@ label end
     return                  // return sum
 ```
 
-The code above calculates `15` and leaves this value on top of the stack at `M[256]` and `SP` will point to the next address (`257`).
+The code above defines a `mult` function with two parameters. In the IL these parameters have lost their identifiers but we can imagine that they are called `x` and `y` in a higher level language. The `mult` function returns the result of multiplying its arguments.
+
+As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It will push two arguments (`100` and `123`). Onto the stack and then call the `mult` function.
+
+When the `mult` function returns, the result of the multiplication is left on the stack at `M[256]` and the `M[SP]` will be `257` pointing to the top of the stack.
 
 ## Using the tool
-The **Hack** assembly is a **dotnet** program that can be executed to perform various tasks.
+The **Hack** assembly is a .NET program that can be executed to perform various tasks.
 
 The tool can be executed by navigating into the `.\src\Hack` directory where the main `Hack` project is located. And then executing:
 ```
