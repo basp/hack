@@ -14,7 +14,9 @@ This is a (partial) implementation of the computing platform described in the bo
 * Translate IL (the VM language from the book) into Hack.
 * Translate Hack into the binary format for the computer as specified in the book.
 * Execute Hack binaries using the simulator.
-* Disassemble any Hack binary into its corresponding assembly code. Note that formatting and symbols are lost when translating into binary. And since we do not have source mapping yet the code you will get back *will* be dense and without any symbols.
+* Disassemble any Hack binary into its corresponding assembly code. 
+
+Note that formatting and symbols are lost when translating into binary. And since we do not have source mapping yet the code you will get back *will* be dense and without any symbols.
 
 ## Example Hack assembly
 Below is a simple Hack assembly program that computes 2 + 3.
