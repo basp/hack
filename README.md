@@ -156,7 +156,11 @@ Hack assembly code can be directly converted to a binary that can be executed us
 > dotnet run asm .\input.hack -o .\out.bin
 ```
 
-The output (`-o`) argument for the `asm` command is mandatory since it is more or less impossible to display the binary output without using a HEX editor. The resulting output (`.\out.bin` in this case) can be run usin the `bin` action of the tool (see **Run a Hack binary** below).
+The output (`-o`) argument for the `asm` command is mandatory since it is not really useful to display the raw binary output.
+
+> If you want to really inspect the binary output visually it is probably a good idea to use a HEX editor instead.
+
+The resulting output (`.\out.bin` in this case) can be run usin the `bin` action of the tool (see **Run a Hack binary** below).
 
 ### Transpile IL to Hack assembly
 The tool can also be used as a transpiler from IL to Hack assembly.
