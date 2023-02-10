@@ -79,9 +79,11 @@ When the `mult` function returns, the result is left on the stack at `M[ARG]` an
 After running the above program (as a Hack binary) the memory should look like this:
 
 ```
-SP   : 257
-LCL  : 256
-ARG  : 256
+SP   : 257 (M[SP] = 256)
+LCL  : 256 (M[LCL] = 150)
+ARG  : 256 (M[ARG] = 150)
+THIS : 2048 (M[THIS] = 0)
+THAT : 2048 (M[THAT] = 0)
 ...
 R13  : 261
 R14  : 63
@@ -91,6 +93,7 @@ R15  : 0
 257: 256 <- SP
 258: 256
 259: 2048
+...
 ```
 
 ## Using the tool

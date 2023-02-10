@@ -142,7 +142,8 @@ public class HackProgram
         for (var i = 0; i < registers.Length; i++)
         {
             ram.Address = (short)i;
-            Console.WriteLine($"{registers[i]}: {ram.Out}");
+            var reg = registers[i];
+            Console.WriteLine($"{reg}: {ram.Out} (M[{reg.Trim()}] = {ram[ram.Out]})");
         }
 
         for (var i = registers.Length; i < 16; i++)
