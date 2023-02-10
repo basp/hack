@@ -3,7 +3,7 @@ This repository contains a (partial) implementation of the system described in t
 
 The book specifies a project where we start with only a **NAND** chip and build up an actual computer using only our starting chip and the chips we can built with it. Next up is an assembler that can convert assembly code into a binary that can be executed on this (virtual) computer. The third step is to implement a virtual machine that transpiles intermediate language (IL) into **Hack** assembly. And finally is a high level programming language that can be compiled all the way to binary using the layers we built earlier.
 
-The system described in this book is simple and elegant. And it is actually quite fun to program in Hack assembly since it is so limited and powerful at the same time. The complete system is not super trivial to implement but it is not that hard either. 
+The system described in the book is simple and elegant. And it is actually quite fun to program in Hack assembly since it is so limited and powerful at the same time. The complete system is not super trivial to implement but it is not that hard either. 
 
 > The simulator, transpiler and assembler are quite useful tools in other situations as well. It is not hard to just instantiate them from code so you could for example have a database with functions that are just bytes that represent a Hack binary. If you want to execute one of these you just need to instantiate a simulator with a ROM chip that contains the bytes of your function. Make sure you set the arguments (if any) correctly and then run it. The result will be at `M[@ARGS]`.
 
