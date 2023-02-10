@@ -72,6 +72,20 @@ As per the VM specificiation, the `Sys.init` function is defined to be the entry
 
 When the `mult` function returns, the result of the multiplication is left on the stack at `M[256]` and `M[SP]` will be `257` pointing to the top of the stack.
 
+```
+SP   : 257
+LCL  : 256
+...
+R13  : 261
+R14  : 63
+R15  : 0
+...
+256: 150 <- LCL
+257: 256 <- SP
+258: 256
+259: 2048
+```
+
 ## Using the tool
 The **Hack** assembly is a .NET program that can be executed to perform various tasks.
 
