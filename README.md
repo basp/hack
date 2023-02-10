@@ -33,7 +33,9 @@ Below is a simple Hack assembly program that computes `2 + 3`.
 ```
 
 ## Example intermediate language (IL)
-And although programming in Hack assembly is pretty pleasant once you get into it, it does help to have a somewhat higher level of language. This is where we want to use IL which translates to Hack using the `il` command of the tool.
+Programming in Hack assembly is pretty pleasant once you get into it but it does help to have an intermediate language. This is where we want to use IL which translates to Hack using the `il` command of the tool. 
+
+> IL is much more ergonomic when it comes to function declarations, function calls and returns since the transpiler will take care of all the label and stack management that is involved with these operations.
 
 ```
 function init 0             // zero locals
