@@ -151,7 +151,7 @@ Actions
 If you get output that remotely resembles this then everything is setup correctly but you're probably not supplying the right arguments yet. Those will be explained next.
 
 ### Compile Hack assembly to binary
-Hack assembly code can be directly converted to a binary that can be executed using the simulator that is included (see executing binaries example).
+Hack assembly code can be directly converted to a binary that can be executed using the custom simulator.
 ```
 > dotnet run asm .\input.hack -o .\out.bin
 ```
