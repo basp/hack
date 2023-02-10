@@ -39,11 +39,10 @@ And although programming in Hack assembly is pretty pleasant once you get into i
 function init 0             // zero locals
     push constant 12
     push constant 12
-    call Math.mult 2
+    call Math.mult 2        // two arguments
     push constant 2
     push constant 3
-    // call Math.mult with two arguments
-    call Math.mult 2        
+    call Math.mult 2        // same here
     add
     return
 
