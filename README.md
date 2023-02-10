@@ -206,7 +206,7 @@ You can disassembly a previously compiled Hack binary into its equivalent assemb
 > dotnet run dasm .\out.bin
 ```
 
-Which should output something very simular to:
+Which should output something similar to:
 ```
 @256
 D=A
@@ -231,6 +231,8 @@ M=D
 M=M+1
 ...
 ```
+
+> The exact instructions you get depend on the assembler and also how you have been following along so far so do not worry if your output looks different. Just make sure that you see a `@256` and `@2048` in the beginning somewhere, that (most likely) means at least the stack and heap pointers are properly initialized.
 
 Note that during the compilation process all symbolic information is essentially lost so when decompiling you will get back only raw addresses for `@` instructions.
 
