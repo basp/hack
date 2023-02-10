@@ -246,7 +246,7 @@ This is a great way to make sure that all systems are aligned and doing the same
 
 ## Credits
 * Noam Nisan & Shimon Schocken for writing the book **The Elements of Computing Systems** and designing such a *delightful system* to work with.
-* Terence Parr for **ANTLR** and **StringTemplate** which now have become indispensable in most of my leisure programming. Having these tools was a hage time saver when implementing the various parsers for this project. They are both excellent.
+* Terence Parr for **ANTLR** and **StringTemplate** which now have become indispensable in most of my leisure programming. Having these tools was a hage time saver when implementing the various parsers and transpilers for this project.
 * Adam Abdelhamed for the excellent **PowerArgs** which is my goto library whenever I need to deal with command line arguments. It is in almost all of my applications.
 * All the unnamed heroes that went before and laid the foundation for these great people to provide awesome tooling.
 * The wonderful people that are developing the **.NET framework**. You are doing amazing work and it is been amazing to see how things have progressed from .NET 1.1 (when I jumped on the train).
