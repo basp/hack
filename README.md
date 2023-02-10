@@ -189,7 +189,6 @@ You can check the lowest memory positions to see if registers are pointing to th
 > There are some plans to improve diagnostics on this part so that *all* pointers will be indicated if they point to the same address.
 
 ```
-1 runs in 0,01s (avg. 7,38ms/run)
 SP   : 257
 LCL  : 256
 ARG  : 256
