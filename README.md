@@ -14,7 +14,7 @@ This is a (partial) implementation of the computing platform described in the bo
 * Execute Hack binaries using a custom simulator.
 * Disassemble any Hack binary into its corresponding assembly code. 
 
-The custom simulator behaves exactly as specified in the book. However, it does not utilize the HDL from the book but instead is directly simulated using C# the .NET runtime instead.
+The custom simulator behaves exactly as specified in the book. However, it does not utilize the HDL from the book but instead is programmed in C# and using the .NET runtime instead.
 
 > There are some ideas to provide a real hardware simulator and language for the CLR Hack platform in the future. This would allow us to built the whole system up from individual bits instead of relying on a relatively high level simulator.
 
