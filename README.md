@@ -18,7 +18,7 @@ The custom simulator behaves exactly as specified in the book. However, it does 
 
 > There are some ideas to provide a real hardware simulator and language for the CLR Hack platform in the future. This would allow us to built the whole system up from individual bits instead of relying on a relatively high level simulator.
 
-When translating Hack assembly into binary the symbols are lost. And since we do not have source mapping yet the disassembled code *will* be dense and without any symbols. It is however quite mesmerizing to look at and can be useful for development purpuses such as debugging and comparing different transpilers and/or assemblers.
+When translating Hack assembly into binary, the symbols are lost. And since we do not have source mapping yet the disassembled code *will* be dense and without any symbols. It is however quite mesmerizing to look at and can be useful for development purpuses such as debugging and comparing different transpilers and/or assemblers.
 
 ## Example Hack assembly
 Below is a simple Hack assembly program that computes `2 + 3`.
