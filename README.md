@@ -49,7 +49,16 @@ label end
     return
 ```
 
-This will end up creating a label `Bar.foo.end` in assembly for the `label end` statement since we are in the scope of the file `Bar` and the function `foo`.
+This will end up creating a function `Bar.foo`:
+```
+    // ---------------------------
+    // function foo 0
+    // ---------------------------
+(Bar.foo)
+    ...
+```
+
+As well as a label `Bar.foo.end` in assembly for the `label end` statement since we are in the scope of the file `Bar` and the function `foo`.
 
 ```
     ...
