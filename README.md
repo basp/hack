@@ -9,7 +9,7 @@ The system described in this book is simple and elegant. And it is actually quit
 
 The book contains the specifications for a very satisfying project that comes together in a quite spectacular finale. It's probably one of my favorite books and I recommend every programmer to work through it.
 
-This is a (partial) implementation of the computing platform described in the book. It does not contain all the tooling that is included in the book such as all the visual debuggers and simulators. It only includes one tool that is able to perform the following actions:
+This is a (partial) implementation of the computing platform described in the book. It does not contain all the tooling that is included with the book such as all the visual debuggers and simulators. It only includes one tool that is able to perform the following actions:
 
 * Translate IL (the VM language from the book) into Hack.
 * Translate Hack into the binary format for the computer as specified in the book.
