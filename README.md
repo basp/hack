@@ -189,31 +189,40 @@ You can check the lowest memory positions to see if registers are pointing to th
 > There are some plans to improve diagnostics on this part so that *all* pointers will be indicated if they point to the same address.
 
 ```
-SP   : 257
-LCL  : 256
-ARG  : 256
-THIS : 2048
+1 runs in 0,01s (avg. 8,23ms/run), 2303 ticks (280 ticks/ms)
+SP   : 257 (M[SP] = 256)
+LCL  : 256 (M[LCL] = 150)
+ARG  : 256 (M[ARG] = 150)
+THIS : 2048 (M[THIS] = 0)
+THAT : 2048 (M[THAT] = 0)
+R5   : 0
+R6   : 0
+R7   : 0
 R8   : 0
 R9   : 0
 R10  : 0
+R11  : 0
 R12  : 0
 R13  : 261
 R14  : 63
 R15  : 0
 ...
-256: 15 <- LCL
+256: 150 <- LCL
 257: 256 <- SP
 258: 256
 259: 2048
-262: 261
-263: 256
-265: 2048
-266: 15
-267: 5
-268: 227
-269: 266
-270: 261
-271: 2048
+260: 2048
+261: 0
+262: 150
+263: 6
+264: 3
+265: 427
+266: 261
+267: 256
+268: 2048
+269: 2048
+270: 6
+271: 0
 ```
 
 ### Disassembly a binary
