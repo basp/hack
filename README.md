@@ -95,7 +95,20 @@ label end
 
 The code above defines a `mult` function with two parameters. In the IL these parameters have lost their identifiers but we can imagine that they are called `x` and `y` in a higher level language. The `mult` function returns the result of multiplying its arguments by leaving it on top of the stack.
 
-As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It first will call `mult(12, 12)` which leaves `144` on the stack. Then it will call `mult(2, 3)` which leaves `6` on the stack. Before returning it will call `add` which pops the top two items off the stack, adds them together and pushes the result back. This means that `144 + 6 = 150` is left on the stack.
+As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It first will call `mult(12, 12)` which leaves `144` on the stack.
+
+The IL code looks like this:
+```
+push constant 12    // push argument x
+push constant 12    // push argument y
+call mult 2         // call mult with two pushed arguments
+```
+
+> First we push the arguments onto the stack. Then we call the `mult` function and specify the number `2` because we have pushed two arguments. In this way, the assembler will know how many arguments it has to work with when it generates the assembly code for the call.
+
+Then it will call `mult(2, 3)` which leaves `6` on the stack. Before returning it will call `add` which pops the top two items off the stack, adds them together and pushes the result back. This means that `144 + 6 = 150` is left on the stack.
+
+> The IL code for `mult(2, 3)` is equivalent to `mult(12, 12)` but just using different values for `pop constant`.
 
 When the `mult` function returns, the result is left on the stack at `M[ARG]` and `M[SP]` will be `257`, pointing to the top of the stack. It is the responsibility of the caller to pop any results of the stack (if necessary).
 
