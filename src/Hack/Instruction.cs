@@ -2,7 +2,7 @@ namespace Hack;
 
 public readonly struct Instruction
 {
-    // If the four high bits are 1 then we have a C-instruction (computation) 
+    // If the three high bits are 1 then we have a C-instruction (computation) 
     // otherwise, it will be an A-instruction (memory addressing).
     private const ushort computationMask = 0b1110_0000_0000_0000;
 
