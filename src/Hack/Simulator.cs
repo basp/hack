@@ -35,6 +35,15 @@ public class Simulator
             )
             : false;
 
+    /// <summary>
+    /// Runs the simulator in a (potentially endless) loop
+    /// until it encounters the halt signature.
+    /// </summary>
+    /// <remarks>
+    /// For debugging and development purposes you might want
+    /// to use the `Cycle` method instead which just executes
+    /// one instruction before returning.
+    /// </remarks>
     public void Run()
     {
         while (!this.IsHalted)

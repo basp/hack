@@ -1,0 +1,9 @@
+function Sys.init 0
+    call Example04.test 0
+    return
+
+function Example04.test 0
+    push constant 2
+    push constant 3
+    add
+    return
