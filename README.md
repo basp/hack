@@ -190,7 +190,7 @@ This will run the `.\out.bin` file that was assembled by using the `asm` command
 
 When properly halted, it will also output some information about execution time, the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers indicated (unless `SP`, `ARG`, `LCL` or both coincide with eachother, in that case only the most significant pointer will be marked). 
 
-You can check the lowest memory positions to see if registers are pointing to the same address (which is common and perfectly normal). In the example below, both `LCL` and `ARG` point to the same memory address so in the stack listing only `LCL` will show up.
+You can check the lowest memory positions to see if registers are pointing to the same address (which is common and perfectly normal). In the `mult` example from above, both `LCL` and `ARG` point to the same memory address the stack but only `LCL` will show up when the memory gets dumped at the end of the run.
 
 > There are some plans to improve diagnostics on this part so that *all* pointers will be indicated if they point to the same address.
 
