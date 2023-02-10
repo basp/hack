@@ -105,6 +105,8 @@ R15  : 0
 ...
 ```
 
+You will notice that `150` (our result) is left at the base of the stack at `M[256]`. This is also the address of the `LCL` and `ARG` registers before we made the jump(s) to `Math.mult`. By design, the return argument will be at `M[ARG]`. When a `call` to a function returns. And `SP` will be equal to `ARG + 1` (unless we support multiple return arguments and we don't).
+
 ## Using the tool
 The **Hack** assembly is a .NET program that can be executed to perform various tasks.
 
