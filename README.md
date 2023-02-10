@@ -261,6 +261,8 @@ This is a great way to make sure that all systems are aligned and doing the same
 
 And finally to **Adele Goldberg** who was instrumental to the development of Smalltalk and also the writing of the famous **Blue Book** (**Smalltalk-80, The Language and It's Implementation**). 
 
-My frustration with OOP in the 90's led me to Smalltalk and I was fascinated by the virtual machine described in that book. The machine that is specified is so elegant and eloquently described in the book that it is hard to put into words how wondeful it is. 
+My frustration with OOP in the 90's led me to Smalltalk and I was fascinated by it. It didn't took too long for me to find the **Blue Book** which specifies the Smalltalk virtual machine. The machine that is specified is so elegant and eloquently described in the book that it is hard to put into words how wondeful it is.
 
-I tried to implement Smalltalk but failed every time. Now that I have some more experience I will likely give it another try. Maybe there will be a Smalltalk for .NET one day. I'm still dreaming. Without the **Blue Book** I wouldn't even contemplate this. Thank you Adele!
+I tried to implement Smalltalk but failed every time. This was by no means a fault of the book but just a side effect of my own incompetence. 
+
+Now that I have some more experience I will likely give it another try. Maybe there will be a Smalltalk for .NET one day. I'm still dreaming. Without the **Blue Book** I wouldn't even contemplate this. Thank you Adele!
