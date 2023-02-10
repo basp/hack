@@ -37,9 +37,9 @@ Programming in Hack assembly is pretty pleasant once you get into it but it does
 
 > IL is much more ergonomic when it comes to function declarations, function calls and returns since the transpiler will take care of all the label and stack management that is involved with these operations.
 
-In IL, all code needs to reside in a function and there needs to be at least one `Sys.init` function to bootstrap the program. 
+In IL, all code needs to reside in a function and there must be only one single `Sys.init` function to bootstrap the program.
 
-In file `Sys.vm` we have the `init` function. This function
+In the file `Sys.vm` we have the `init` function. This function
 will call `Math.mult` which should be in `Math.vm` in the same directory.
 ```
 function init 0             // zero locals
