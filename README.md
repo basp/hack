@@ -51,6 +51,8 @@ label end
 
 This will end up creating a label `Bar.foo.end` in assembly for the `label end` statement since we are in the scope of the file `Bar` and the function `foo`.
 
+## Example VM bootstrap
+
 In the file `Sys.vm` we have the `init` function. This function
 will call `Math.mult` which should be in `Math.vm` in the same directory.
 ```
