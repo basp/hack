@@ -37,6 +37,10 @@ Programming in Hack assembly is pretty pleasant once you get into it but it does
 
 > IL is much more ergonomic when it comes to function declarations, function calls and returns since the transpiler will take care of all the label and stack management that is involved with these operations.
 
+In IL, all code needs to reside in a function and there needs to be at least one `Sys.init` function to bootstrap the program. 
+
+In file `Sys.vm` we have the `init` function. This function
+will call `Math.mult` which should be in `Math.vm` in the same directory.
 ```
 function init 0             // zero locals
     push constant 12
@@ -47,8 +51,11 @@ function init 0             // zero locals
     call Math.mult 2        // same here
     add
     return
+```
 
-function Example04.mult 2   // two locals (sum, j)
+And then in file `Math.vm` we have the `mult` function. This is called by `Sys.init` from the `Sys.vm` file.
+```
+function mult 2   // two locals (sum, j)
     push constant 0
     pop local 0             // sum = 0
     push argument 1
