@@ -70,7 +70,7 @@ The code above defines a `mult` function with two parameters. In the IL these pa
 
 As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It will push two arguments (`100` and `123`). Onto the stack and then call the `mult` function.
 
-When the `mult` function returns, the result of the multiplication is left on the stack at `M[256]` and the `M[SP]` will be `257` pointing to the top of the stack.
+When the `mult` function returns, the result of the multiplication is left on the stack at `M[256]` and `M[SP]` will be `257` pointing to the top of the stack.
 
 ## Using the tool
 The **Hack** assembly is a .NET program that can be executed to perform various tasks.
