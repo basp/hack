@@ -44,12 +44,16 @@ public class Simulator
     /// to use the `Cycle` method instead which just executes
     /// one instruction before returning.
     /// </remarks>
-    public void Run()
+    public int Run()
     {
+        var i = 0;
         while (!this.IsHalted)
         {
             this.Cycle();
+            i++;
         }
+
+        return i;
     }
 
     public void Cycle()

@@ -1,4 +1,5 @@
 using System.Text;
+using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using Antlr4.StringTemplate;
 
@@ -39,43 +40,64 @@ class Transpiler2 : ILBaseListener
 
     private readonly StringBuilder builder = new StringBuilder();
 
-    private readonly string path;
-
     private readonly TemplateGroupFile templateGroupFile;
 
-    private string scope;
+    // private string scope;
 
-    public Transpiler2(string path, string templateGroupFile)
+    private Stack<string> scope = new Stack<string>();
+
+    private Transpiler2(string scope, TemplateGroupFile templateGroupFile)
     {
-        this.path = path;
-        this.scope = Path.GetFileNameWithoutExtension(path);
-        this.templateGroupFile = new TemplateGroupFile(
-            Path.GetFullPath(templateGroupFile));
+        this.scope.Push(scope);
+        this.templateGroupFile = templateGroupFile;
     }
 
-    public string Transpiled => this.builder.ToString();
-
-    public override void EnterProgram(
-        [NotNull] ILParser.ProgramContext context)
+    public static string Transpile(
+        string path,
+        TemplateGroupFile templateGroupFile)
     {
-        var now = DateTime.Now;
-        var ret = this.GenerateSymbol($"Sys.init.return");
-        var st = this.templateGroupFile.GetInstanceOf("init");
-        st.Add("generator", nameof(Transpiler2));
-        st.Add("date", now.ToShortDateString());
-        st.Add("time", now.ToShortTimeString());
-        st.Add("init", "Sys.init");
-        st.Add("nargs", 0);
-        st.Add("ret", ret);
-        this.builder.AppendLine(st.Render());
+
+        var banner = new[]
+        {
+            @".__                   __    ",
+            @"|  |__ _____    ____ |  | __",
+            @"|  |  \\__  \ _/ ___\|  |/ /",
+            @"|   Y  \/ __ \\  \___|    < ",
+            @"|___|  (____  /\___  >__|_ \",
+            @"\/     \/     \/     \/     v1.0",
+        };
+
+        var output = new StringBuilder();
+        foreach (var line in banner)
+        {
+            output.AppendLine($"// {line}");
+        }
+
+        WritePreamble(output, templateGroupFile);
+        if (File.Exists(path))
+        {
+            output.AppendLine($"// {Path.GetFullPath(path)}");
+            output.AppendLine(TranspileFile(path, templateGroupFile));
+        }
+        else if (Directory.Exists(path))
+        {
+            foreach (var file in Directory.GetFiles(path, "*.vm"))
+            {
+                output.AppendLine($"// {Path.GetFullPath(file)}");
+                output.AppendLine(TranspileFile(file, templateGroupFile));
+            }
+        }
+
+        return output.ToString().Trim();
     }
 
     public override void ExitFunction(
         [NotNull] ILParser.FunctionContext context)
     {
-        var f = context.NAME().GetText();
-        var n = int.Parse(context.UINT().GetText());
-        this.WriteFunctionDeclaration(f, n);
+        var fn = context.NAME().GetText();
+        var nlocals = int.Parse(context.UINT().GetText());
+        this.WriteFunctionDeclaration(fn, nlocals);
+        this.scope.Push($"{this.scope.Peek()}.{fn}");
     }
 
     public override void ExitCall([NotNull] ILParser.CallContext context)
@@ -90,12 +112,13 @@ class Transpiler2 : ILBaseListener
     {
         var st = this.templateGroupFile.GetInstanceOf("return");
         this.builder.AppendLine(st.Render());
+        this.scope.Pop();
     }
 
     public override void ExitGoto([NotNull] ILParser.GotoContext context)
     {
         var name = context.NAME().GetText();
-        var label = $"{this.scope}.{name}";
+        var label = $"{this.scope.Peek()}.{name}";
         var st = this.templateGroupFile.GetInstanceOf("goto");
         st.Add(nameof(label), label);
         this.builder.AppendLine(st.Render());
@@ -105,7 +128,7 @@ class Transpiler2 : ILBaseListener
         [NotNull] ILParser.IfGotoContext context)
     {
         var name = context.NAME().GetText();
-        var label = $"{this.scope}.{name}";
+        var label = $"{this.scope.Peek()}.{name}";
         var st = this.templateGroupFile.GetInstanceOf("ifGoto");
         st.Add(nameof(label), label);
         this.builder.AppendLine(st.Render());
@@ -115,7 +138,7 @@ class Transpiler2 : ILBaseListener
         [NotNull] ILParser.LabelContext context)
     {
         var name = context.NAME().GetText();
-        this.builder.AppendLine($"({this.scope}.{name})");
+        this.builder.AppendLine($"({this.scope.Peek()}.{name})");
     }
 
     public override void ExitPushConstant(
@@ -131,7 +154,7 @@ class Transpiler2 : ILBaseListener
         [NotNull] ILParser.PushStaticContext context)
     {
         var index = int.Parse(context.UINT().GetText());
-        var name = Path.GetFileNameWithoutExtension(this.path);
+        var name = this.scope;
         var st = this.templateGroupFile.GetInstanceOf("pushStatic");
         st.Add(nameof(name), name);
         st.Add(nameof(index), index);
@@ -142,7 +165,7 @@ class Transpiler2 : ILBaseListener
         [NotNull] ILParser.PopStaticContext context)
     {
         var index = int.Parse(context.UINT().GetText());
-        var name = Path.GetFileNameWithoutExtension(this.path);
+        var name = this.scope;
         var st = this.templateGroupFile.GetInstanceOf("popStatic");
         st.Add(nameof(name), name);
         st.Add(nameof(index), index);
@@ -276,10 +299,42 @@ class Transpiler2 : ILBaseListener
         WriteLogicalOp(@lt, "JLT");
     }
 
+    private static string TranspileFile(
+        string path,
+        TemplateGroupFile templateGroupFile)
+    {
+        var source = File.ReadAllText(path);
+        var scope = Path.GetFileNameWithoutExtension(path);
+        var input = new AntlrInputStream(source);
+        var lexer = new ILLexer(input);
+        var tokens = new CommonTokenStream(lexer);
+        var parser = new ILParser(tokens);
+        var listener = new Transpiler2(scope, templateGroupFile);
+        parser.AddParseListener(listener);
+        parser.program();
+        return listener.builder.ToString();
+    }
+
+    private static void WritePreamble(
+        StringBuilder output,
+        TemplateGroupFile templateGroupFile)
+    {
+        var now = DateTime.Now;
+        var st = templateGroupFile.GetInstanceOf("init");
+        st.Add("generator", nameof(Transpiler2));
+        st.Add("date", now.ToShortDateString());
+        st.Add("time", now.ToShortTimeString());
+        st.Add("init", "Sys.init");
+        st.Add("nargs", 0);
+        st.Add("ret", "Sys.init.return");
+        output.AppendLine(st.Render());
+    }
+
     private void WriteFunctionDeclaration(string fn, int nlocals)
     {
         var st = this.templateGroupFile.GetInstanceOf("functionDecl");
         var locals = Enumerable.Range(0, nlocals);
+        st.Add(nameof(scope), scope);
         st.Add(nameof(fn), fn);
         st.Add(nameof(locals), locals);
         this.builder.AppendLine(st.Render());

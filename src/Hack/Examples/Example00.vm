@@ -1,0 +1,3 @@
+function Sys.init 2
+    push constant 0
+    return

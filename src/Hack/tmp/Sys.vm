@@ -1,0 +1,9 @@
+function init 1
+    push constant 12
+    push constant 12
+    call Math.mult 2
+    push constant 2
+    push constant 3
+    call Math.mult 2
+    add
+    return

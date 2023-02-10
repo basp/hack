@@ -114,18 +114,21 @@ public class HackProgram
         var ram = new RAM32K();
 
         var start = DateTime.Now;
+        var ticks = 0;
         for (var i = 0; i < args.Runs; i++)
         {
             var sim = new Simulator(rom, ram);
-            sim.Run();
+            ticks += sim.Run();
         }
 
         var finish = DateTime.Now;
         var duration = (finish - start);
         var seconds = Math.Round(duration.TotalSeconds, 2);
         var avg = Math.Round(duration.TotalMilliseconds / args.Runs, 2);
+        var ticksPerMs = Math.Round(ticks / duration.TotalMilliseconds);
 
-        Console.WriteLine($"{args.Runs} runs in {seconds}s (avg. {avg}ms/run)");
+        Console.WriteLine(
+            $"{args.Runs} runs in {seconds}s (avg. {avg}ms/run), {ticks} ticks ({ticksPerMs} ticks/ms)");
 
         var registers = new[]
         {
@@ -218,15 +221,14 @@ public class HackProgram
             }
         }
 
-        var source = File.ReadAllText(args.Path);
-        var input = new AntlrInputStream(source);
-        var lexer = new ILLexer(input);
-        var tokens = new CommonTokenStream(lexer);
-        var parser = new ILParser(tokens);
-        var listener = new Transpiler2(args.Path, @".\VM2.stg");
-        parser.AddParseListener(listener);
-        parser.program();
-        Write(listener.Transpiled);
+        var templateGroupFile = new TemplateGroupFile(
+            Path.GetFullPath(@".\VM2.stg"));
+
+        var hack = Transpiler2.Transpile(
+            Path.GetFullPath(args.Path),
+            templateGroupFile);
+
+        Write(hack);
     }
 
     private short[] ReadBinary(string path)
