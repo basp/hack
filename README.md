@@ -21,15 +21,15 @@ Note that formatting and symbols are lost when translating into binary. And sinc
 ## Example Hack assembly
 Below is a simple Hack assembly program that computes `2 + 3`.
 ```
-    @2                  
-    D=A                 
-    @3                  
+    @2                  // A <- 2
+    D=A                 // D <- A
+    @3                  // A <- 3
     D=D+A               // D <- 2 + 3
-    @result             
+    @result             // A <- @result
     M=D                 // M[@result] <- D
 (end)
-    @end
-    0;JMP               // defacto halt
+    @end                // A <- @end
+    0;JMP               // defacto halt (no computation loop)
 ```
 
 ## Example intermediate language (IL)
