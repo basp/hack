@@ -19,7 +19,7 @@ This is a (partial) implementation of the computing platform described in the bo
 Note that formatting and symbols are lost when translating into binary. And since we do not have source mapping yet the disassembled code *will* be dense and without any symbols. It is however quite mesmerizing to look at and can be useful for development purpuses such as debugging and comparing different transpilers and/or assemblers.
 
 ## Example Hack assembly
-Below is a simple Hack assembly program that computes 2 + 3.
+Below is a simple Hack assembly program that computes `2 + 3`.
 ```
     @2                  
     D=A                 
