@@ -1,7 +1,15 @@
 # Hack
-Hacking on "The Elements of Computer Systems". The system described in this book is simple and elegant. It is not super trivial to implement but it is not that hard either. The book contains the specifications for a very satisfying project that comes together in a quite spectacular finale. It's probably one of my favorite books and I recommend every programmer to work through it.
+This repository contains a (partial) implementation of the system described in the book "The Elements of Computers Systems" by Nisan and Schocken. It is sometimes also known as "From NAND to Tetris". 
 
-This is a (partial) implementation of the computing platform described in the book mentioned above by Nisan and Schocken. It does not contain all the tooling that is included in the book such as all the visual debuggers and simulators. It only includes one tool that is able to perform the following actions:
+The book specifies a project where we start with only a **NAND** chip and build up an actual computer using only our starting chip and the chips we can built with it. Next up is an assembler that can convert assembly code into a binary that can be executed on this (virtual) computer. The third step is to implement a virtual machine that transpiles intermediate language (IL) into Hack assembly. And finally is a high level programming language that can be compiled all the way to binary using the layers we built earlier.
+
+The system described in this book is simple and elegant. And it is actually quite fun to program in Hack assembly since it is so limited and powerful at the same time. The complete system is not super trivial to implement but it is not that hard either. 
+
+> I think the simulator and assembler might be quite useful in itself since they are so generic. If you ever want to support dynamic behavior, run custom code or anything in that nature it is quite trivial to just compile a string and run that on the simulator. They are pretty lightweight so you can run many of them in parallel as well. Even better if you can pre-compile the code and just put it in the ROM.
+
+The book contains the specifications for a very satisfying project that comes together in a quite spectacular finale. It's probably one of my favorite books and I recommend every programmer to work through it.
+
+This is a (partial) implementation of the computing platform described in the book. It does not contain all the tooling that is included in the book such as all the visual debuggers and simulators. It only includes one tool that is able to perform the following actions:
 
 * Translate IL (the VM language from the book) into Hack.
 * Translate Hack into the binary format for the computer as specified in the book.
