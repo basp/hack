@@ -237,8 +237,8 @@ A decent sanity check is to transform your IL into binary via `IL -> asm -> bin`
 In pseudocode:
 ```
 expected <- asm(IL())
-reversed <- dasm(expected)
-actual <- asm(reversed)
+disassembled <- dasm(expected)
+actual <- asm(disassembled)
 actual == expected
 ```
 
