@@ -29,9 +29,9 @@ public readonly struct Instruction
     /// </summary>
     /// <remarks>
     /// C-instructions that have their alpha flag set instruct the processor
-    /// to use direct memory access for one of the operands instead. If the
-    /// alpha flag is not set then the processor will use only the A and D
-    /// registers.
+    /// to use the A register as a pointer into memory instead of using its
+    /// value directly. This means that one of the operands will be `M[A]`
+    /// instead of `A`.
     /// </remarks>
     public bool IsAlpha =>
         (this.value & alphaMask) == alphaMask;

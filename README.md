@@ -1,11 +1,12 @@
 # Hack
-Hacking on "The Elements of Computer Systems".
+Hacking on "The Elements of Computer Systems". The system described in this book is simple and elegant. It is not super trivial to implement but it is not that hard either. The book contains the specifications for a very satisfying project that comes together in a quite spectacular finale. It's probably one of my favorite books and I recommend every programmer to work through it.
 
-This is a (partial) implementation of the computing platform described in the book mentioned above by Nisan and Schocken.
+This is a (partial) implementation of the computing platform described in the book mentioned above by Nisan and Schocken. It does not contain all the tooling that is included in the book such as all the visual debuggers and simulators. It only includes one tool that is able to perform the following actions:
 
-Since I wasn't in the mood to run too much Java so the system was built from scratch using C#. It doesn't include any tooling to work with the HDL from the book (yet) so for now the computer parts are simulated directly in C# instead.
-
-The IL features function calls and returns and proper stack management. This will compile to Hack assembly which can be executed using the Hack computer simulator mentioned in the previous paragraph.
+* Translate IL (the VM language from the book) into Hack.
+* Translate Hack into the binary format for the computer as specified in the book.
+* Execute Hack binaries using the simulator.
+* Disassemble any Hack binary into its corresponding assembly code. Note that formatting and symbols are lost when translating into binary. And since we do not have source mapping yet the code you will get back *will* be dense and without any symbols.
 
 ## Example Hack assembly
 Below is a simple Hack assembly program that computes 2 + 3.
