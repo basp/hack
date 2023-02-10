@@ -36,10 +36,14 @@ Below is a simple Hack assembly program that computes `2 + 3`.
 And although programming in Hack assembly is pretty pleasant once you get into it, it does help to have a somewhat higher level of language. This is where we want to use IL which translates to Hack directly using the VM conventions described in the book.
 
 ```
-function Sys.init 0
-    push constant 100
-    push constant 123
-    call Example04.mult 2
+function init 0
+    push constant 12
+    push constant 12
+    call Math.mult 2
+    push constant 2
+    push constant 3
+    call Math.mult 2
+    add
     return
 
 function Example04.mult 2   // mult(x, y)
@@ -68,9 +72,11 @@ label end
 
 The code above defines a `mult` function with two parameters. In the IL these parameters have lost their identifiers but we can imagine that they are called `x` and `y` in a higher level language. The `mult` function returns the result of multiplying its arguments.
 
-As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It will push two arguments (`100` and `123`). Onto the stack and then call the `mult` function.
+As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It first will call the `mult(12, 12)` which leaves `144` on the stack. Then it will call `mult(2, 3)` which leaves `6` on the stack. Before returning it will call `add` which just adds the top two items on the stack and pushes the result. This means that `144 + 6 = 150` is left on the stack.
 
-When the `mult` function returns, the result of the multiplication is left on the stack at `M[256]` and `M[SP]` will be `257` pointing to the top of the stack.
+When the `mult` function returns, the result of the is left on the stack at `M[256]` and `M[SP]` will be `257` pointing to the top of the stack. It is the responsibility of the caller to pop any results of the stack (if necessary).
+
+After running the above program (as a Hack binary) the memory should look like this:
 
 ```
 SP   : 257
