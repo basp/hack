@@ -5,7 +5,7 @@ The book specifies a project where we start with only a **NAND** chip and build 
 
 The system described in this book is simple and elegant. And it is actually quite fun to program in Hack assembly since it is so limited and powerful at the same time. The complete system is not super trivial to implement but it is not that hard either. 
 
-> I think the simulator and assembler might be quite useful in itself since they are so generic. If you ever want to support dynamic behavior, run custom code or anything in that nature it is quite trivial to just compile a string and run that on the simulator. They are pretty lightweight so you can run many of them in parallel as well. Even better if you can pre-compile the code and just put it in the ROM.
+> The simulator, transpiler and assembler are quite useful tools in other situations as well. It is not hard to just instantiate them from code so you could for example have a database with functions that are just bytes that represent a Hack binary. If you want to execute one of these you just need to instantiate a simulator with a ROM chip that contains the bytes of your function. Make sure you set the arguments (if any) correctly and then run it. The result will be at `M[@ARGS]`.
 
 The book contains the specifications for a very satisfying project that comes together in a quite spectacular finale. It's probably one of my favorite books and I recommend every programmer to work through it.
 
