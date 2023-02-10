@@ -109,7 +109,7 @@ You will notice that `150` (our result) is left at the base of the stack at `M[2
 
 By design, the return argument will be at `M[ARG]` when a function call returns. Additionally, `SP` will be equal to `ARG + 1`. 
 
-If the caller (to which we return) has no locals then `LCL` will be equal to `ARG` and point to the same position in the stack.
+If the caller (to which we return) has no locals then `LCL` will be equal to `ARG` and point to the same position in the stack (like in the example above).
 
 ## Using the tool
 The **Hack** assembly is a .NET program that can be executed to perform various tasks.
