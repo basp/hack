@@ -154,7 +154,7 @@ R15  : 0
 
 You will notice that `150` (our result) is left at the base of the stack at `M[256]`. This is also the address of the `LCL` and `ARG` registers before we made the jump(s) to `Math.mult`. 
 
-By design, the return argument will be at `M[ARG]` when a function call returns. Additionally, `SP` will be equal to `ARG + 1`. 
+By design, the return argument will be at `M[ARG]` when a function call returns. Additionally, `M[SP]` will be equal to `M[ARG] + 1`. 
 
 If the caller (to which we return) has no locals then `LCL` will be equal to `ARG` and point to the same position in the stack (like in the example above).
 
