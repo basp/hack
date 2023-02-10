@@ -151,7 +151,7 @@ The tool can also be used as a transpiler from IL to Hack assembly.
 > dotnet run il .\input.vm -o .\out.hack
 ```
 
-This will transpile a file a file written in intermediate code to Hack assembly code.
+This will transpile a file written in intermediate language to Hack assembly code.
 
 In this case the output (`-o`) argument for the `il` command is optional. If it is not supplied the transpiled output will be print to the standard output instead. This is useful is you just want some quick (development) output on your console instead of storing it into a file.
 
