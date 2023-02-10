@@ -188,7 +188,7 @@ Once you have assembled a Hack binary file you can run this with:
 
 This will run the `.\out.bin` file that was assembled by using the `asm` command on `.\out.hack` earlier.
 
-When properly halted, it will also output some information about execution time, the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers indicated (unless `SP`, `ARG`, `LCL` or both coincide with eachother, in that case only the most significant pointer will be marked. 
+When properly halted, it will also output some information about execution time, the values of well-known registers and information about the stack with the `SP`, `ARG` and `LCL` pointers indicated (unless `SP`, `ARG`, `LCL` or both coincide with eachother, in that case only the most significant pointer will be marked). 
 
 You can check the lowest memory positions to see if registers are pointing to the same address (which is common and perfectly normal). In the example below, both `LCL` and `ARG` point to the same memory address so in the stack listing only `LCL` will show up.
 
