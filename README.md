@@ -251,11 +251,16 @@ actual == expected
 This is a great way to make sure that all systems are aligned and doing the same thing (even if that is not the right thing).
 
 ## Credits
-* Noam Nisan & Shimon Schocken for writing the book **The Elements of Computing Systems** and designing a wonderful system to implement and work with and teaching me so much about computers in general while implementing it.
-* Terence Parr for **ANTLR** and **StringTemplate** which now have become indispensable in most of my programming projects. Having these tools was a huge time saver when implementing the various parsers and transpilers for this project.
-* Adam Abdelhamed for the excellent **PowerArgs** which is my goto library whenever I need to deal with command line arguments. It is in almost all of my applications.
-* Adam Kay for telling me that computers suck, for being so instrumental in creating **Smalltalk** and for teaching me what *real* object oriented programming should look like.
-* Adele Goldberg for being a huge part of the Smalltalk effort and writing the famous **Blue Book** (**Smalltalk-80, The Language and It's Implementation**). My frustration with OOP in the 90's led me to Smalltalk and I was fascinated by the virtual machine described in that book. Without it, I probably wouldn't be here writing this today nor would I be trying to implement virtual machines. Thank you Smalltalk team!
+* **Noam Nisan** & **Shimon Schocken** for writing the book **The Elements of Computing Systems** and designing a wonderful system to implement and work with and teaching me so much about computers in general while implementing it.
+* **Terence Parr** for **ANTLR** and **StringTemplate** which now have become indispensable in most of my programming projects. Having these tools was a huge time saver when implementing the various parsers and transpilers for this project.
+* **Adam Abdelhamed** for the excellent **PowerArgs** which is my goto library whenever I need to deal with command line arguments. It is in almost all of my applications.
+* **Adam Kay** for telling me that most software and programming languages suck, for being so instrumental in creating **Smalltalk** and for teaching me what *real* object oriented programming should be like.
 * Joe Armstrong for being instrumental in creating Erlang which (although not used for this project) tought so much about programming and designing systems and interfaces in general. And also, Erlang is just really fun to program in.
 * The wonderful people that are developing the **.NET framework**. You are doing amazing work and it is been amazing to see how things have progressed from .NET 1.1 (when I jumped on the train).
 * All the unnamed heroes that went before and laid the foundation for these great people to provide awesome software.
+
+And finally to **Adele Goldberg** who was instrumental to the development of Smalltalk and also the writing of the famous **Blue Book** (**Smalltalk-80, The Language and It's Implementation**). 
+
+My frustration with OOP in the 90's led me to Smalltalk and I was fascinated by the virtual machine described in that book. The machine that is specified is so elegant and eloquently described in the book that it is hard to put into words how wondeful it is. 
+
+I tried to implement Smalltalk but failed every time. Now that I have some more experience I will likely give it another try. Maybe there will be a Smalltalk for .NET one day. I'm still dreaming. Without the **Blue Book** I wouldn't even contemplate this. Thank you Adele!
