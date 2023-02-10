@@ -81,7 +81,7 @@ label end
 
 The code above defines a `mult` function with two parameters. In the IL these parameters have lost their identifiers but we can imagine that they are called `x` and `y` in a higher level language. The `mult` function returns the result of multiplying its arguments by leaving it on top of the stack.
 
-As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It first will call `mult(12, 12)` which leaves `144` on the stack. Then it will call `mult(2, 3)` which leaves `6` on the stack. Before returning it will call `add` which adds the top two items on the stack and pushes the result. This means that `144 + 6 = 150` is left on the stack.
+As per the VM specificiation, the `Sys.init` function is defined to be the entry point of the program. It first will call `mult(12, 12)` which leaves `144` on the stack. Then it will call `mult(2, 3)` which leaves `6` on the stack. Before returning it will call `add` which pops the top two items off the stack, adds them together and pushes the result back. This means that `144 + 6 = 150` is left on the stack.
 
 When the `mult` function returns, the result is left on the stack at `M[ARG]` and `M[SP]` will be `257`, pointing to the top of the stack. It is the responsibility of the caller to pop any results of the stack (if necessary).
 
