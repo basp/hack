@@ -172,7 +172,7 @@ This will transpile a file written in intermediate language to Hack assembly cod
 
 In this case the output (`-o`) argument for the `il` command is optional. If it is not supplied the transpiled output will be written to standard output instead. This is useful is you just want some quick (development) output on your console instead of storing it into a file.
 
-All commands that translate to a form that can be converted to a reasonable string encoding will peform in the same way (i.e. if you leave out the `-o` argument they will just print to standard output).
+> All commands that translate to a form that can be converted to a reasonable string encoding will peform in the same way (i.e. if you leave out the `-o` argument they will just print to standard output).
 
 ### Run a Hack binary
 Once you have assembled a Hack binary file you can run this with:
