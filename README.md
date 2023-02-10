@@ -1,7 +1,7 @@
 # Hack
 This repository contains a (partial) implementation of the system described in the book **The Elements of Computers Systems** by **Nisan** and **Schocken**. It is sometimes also known as "From NAND to Tetris". 
 
-The book specifies a project where we start with only a **NAND** chip and build up an actual computer using only our starting chip and the chips we can built with it. Next up is an assembler that can convert assembly code into a binary that can be executed on this (virtual) computer. The third step is to implement a virtual machine that transpiles intermediate language (IL) into Hack assembly. And finally is a high level programming language that can be compiled all the way to binary using the layers we built earlier.
+The book specifies a project where we start with only a **NAND** chip and build up an actual computer using only our starting chip and the chips we can built with it. Next up is an assembler that can convert assembly code into a binary that can be executed on this (virtual) computer. The third step is to implement a virtual machine that transpiles intermediate language (IL) into **Hack** assembly. And finally is a high level programming language that can be compiled all the way to binary using the layers we built earlier.
 
 The system described in this book is simple and elegant. And it is actually quite fun to program in Hack assembly since it is so limited and powerful at the same time. The complete system is not super trivial to implement but it is not that hard either. 
 
