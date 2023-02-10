@@ -148,7 +148,7 @@ Actions
     Path* (-P)   The path to the source file
 ```
 
-If you get this output then everything is setup correctly but you're not supplying the right arguments yet. Read on to find out more.
+If you get output that remotely resembles this then everything is setup correctly but you're probably not supplying the right arguments yet. Those will be explained next.
 
 ### Compile Hack assembly to binary
 Hack assembly code can be directly converted to a binary that can be executed using the simulator that is included (see executing binaries example).
