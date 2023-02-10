@@ -32,7 +32,7 @@ Below is a simple Hack assembly program that computes `2 + 3`.
     0;JMP               // defacto halt
 ```
 
-## Example intermediate langauge (IL)
+## Example intermediate language (IL)
 And although programming in Hack assembly is pretty pleasant once you get into it, it does help to have a somewhat higher level of language. This is where we want to use IL which translates to Hack directly using the VM conventions described in the book.
 
 ```
