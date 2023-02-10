@@ -42,7 +42,8 @@ function init 0             // zero locals
     call Math.mult 2
     push constant 2
     push constant 3
-    call Math.mult 2        // call Math.mult with two arguments
+    // call Math.mult with two arguments
+    call Math.mult 2        
     add
     return
 
